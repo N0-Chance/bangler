@@ -324,6 +324,102 @@ class StullerClient:
             "success": True
         }
 
+    def search_sizing_stock_by_group_id(self, group_id: int, page_size: int = 500, max_pages: int = None) -> Dict[str, Any]:
+        """
+        Search for sizing stock using DescriptiveElementGroup GroupId filtering
+
+        This targets specific GroupId (e.g., 69562) to efficiently find all sizing stock
+        without scanning all Milled Products.
+
+        Args:
+            group_id: DescriptiveElementGroup GroupId to filter (e.g., 69562)
+            page_size: Products per page (max 500)
+            max_pages: Maximum pages to fetch (None = all pages)
+        """
+        all_products = []
+        page_count = 0
+        next_page_token = None
+        total_products = 0
+
+        print(f"🔄 Starting GroupId-filtered search (GroupId: {group_id})...")
+
+        # Try GroupId as AdvancedProductFilter
+        advanced_filters = [
+            {
+                "Type": "GroupId",
+                "Values": [
+                    {
+                        "DisplayValue": str(group_id),
+                        "Value": str(group_id)
+                    }
+                ]
+            }
+        ]
+
+        while True:
+            page_count += 1
+            print(f"📄 Fetching page {page_count}...")
+
+            try:
+                result = self.search_products(
+                    filters=["OnPriceList", "Orderable"],
+                    includes=["All"],
+                    advanced_filters=advanced_filters,
+                    page_size=page_size
+                )
+
+                if not result["success"]:
+                    print(f"❌ Page {page_count} failed: {result.get('error')}")
+                    break
+
+                page_products = result["products"]
+                all_products.extend(page_products)
+
+                if not total_products and result.get("total_products"):
+                    total_products = result["total_products"]
+
+                print(f"   ✅ Page {page_count}: {len(page_products)} products")
+
+                # Check for next page
+                next_page_token = result.get("next_page_token")
+                if not next_page_token:
+                    print("📄 No more pages available")
+                    break
+
+                # Check max pages limit
+                if max_pages and page_count >= max_pages:
+                    print(f"📄 Reached max pages limit ({max_pages})")
+                    break
+
+            except Exception as e:
+                print(f"❌ Page {page_count} failed: {str(e)}")
+                break
+
+        print(f"🎉 GroupId search complete: {page_count} pages, {len(all_products)} total products")
+
+        # Analyze what we found
+        sizing_stock_count = 0
+        for product in all_products:
+            sku = product.get("SKU", "").upper()
+            description = product.get("Description", "").upper()
+
+            if "SIZING STOCK" in sku or "SIZING STOCK" in description:
+                sizing_stock_count += 1
+
+        print(f"🎯 Sizing stock analysis: {sizing_stock_count}/{len(all_products)} products are sizing stock")
+
+        return {
+            "products": all_products,
+            "sizing_stock_products": all_products,  # Assume all are relevant if GroupId filtering worked
+            "sizing_stock_count": sizing_stock_count,
+            "product_count": len(all_products),
+            "total_products": total_products,
+            "pages_fetched": page_count,
+            "group_id": group_id,
+            "sizing_stock_ratio": f"{sizing_stock_count}/{len(all_products)}" if all_products else "0/0",
+            "success": True
+        }
+
     def get_advanced_product_filters(self) -> Dict[str, Any]:
         """
         Get available advanced product filter types from Stuller API
