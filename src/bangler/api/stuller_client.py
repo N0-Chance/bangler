@@ -133,6 +133,90 @@ class StullerClient:
                 "product_count": 0
             }
 
+    def search_sizing_stock_by_category(self, category_id: int, page_size: int = 500, max_pages: int = None) -> Dict[str, Any]:
+        """
+        Search for sizing stock using specific CategoryId filtering
+
+        Args:
+            category_id: Specific category ID to filter (e.g., 69562 or 10021846)
+            page_size: Products per page (max 500)
+            max_pages: Maximum pages to fetch (None = all pages)
+        """
+        all_products = []
+        page_count = 0
+        next_page_token = None
+        total_products = 0
+
+        print(f"🔄 Starting category-filtered search (CategoryId: {category_id})...")
+
+        while True:
+            page_count += 1
+            print(f"📄 Fetching page {page_count}...")
+
+            result = self.search_products(
+                filters=["OnPriceList", "Orderable"],
+                includes=["All"],
+                page_size=page_size
+            )
+
+            # Need to add CategoryIds parameter support to search_products
+            # For now, let's implement this directly
+
+            endpoint = f"{self.base_url}/products"
+            request_body = {
+                "Filter": ["OnPriceList", "Orderable"],
+                "Include": ["All"],
+                "CategoryIds": [category_id],
+                "PageSize": page_size
+            }
+
+            if next_page_token:
+                request_body["NextPage"] = next_page_token
+
+            try:
+                response = self._make_request(endpoint, request_body)
+
+                if response.status_code == 200:
+                    data = response.json()
+                    page_products = data.get("Products", [])
+                    all_products.extend(page_products)
+
+                    if not total_products and data.get("TotalNumberOfProducts"):
+                        total_products = data.get("TotalNumberOfProducts")
+
+                    print(f"   ✅ Page {page_count}: {len(page_products)} products")
+
+                    # Check for next page
+                    next_page_token = data.get("NextPage")
+                    if not next_page_token:
+                        print("📄 No more pages available")
+                        break
+
+                    # Check max pages limit
+                    if max_pages and page_count >= max_pages:
+                        print(f"📄 Reached max pages limit ({max_pages})")
+                        break
+                else:
+                    print(f"❌ Page {page_count} failed: HTTP {response.status_code}")
+                    break
+
+            except Exception as e:
+                print(f"❌ Page {page_count} failed: {str(e)}")
+                break
+
+        print(f"🎉 Category search complete: {page_count} pages, {len(all_products)} total products")
+
+        return {
+            "products": all_products,
+            "sizing_stock_products": all_products,  # Assume all are sizing stock if filtered by category
+            "sizing_stock_count": len(all_products),
+            "product_count": len(all_products),
+            "total_products": total_products,
+            "pages_fetched": page_count,
+            "category_id": category_id,
+            "success": True
+        }
+
     def search_sizing_stock(self, page_size: int = 500, max_pages: int = None) -> Dict[str, Any]:
         """
         Discover sizing stock products using "Milled Product" type with pagination

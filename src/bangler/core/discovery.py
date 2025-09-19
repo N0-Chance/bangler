@@ -54,9 +54,9 @@ class SizingStockDiscovery:
             if filter_result["success"]:
                 print(f"✅ Found {len(filter_result.get('filters', []))} advanced filter types")
 
-            # Strategy 2: Paginated search for Milled Products (sizing stock)
-            print("🔎 Searching for sizing stock products with pagination...")
-            search_result = self._search_sizing_stock_products(max_pages=5)  # Start with 5 pages for testing
+            # Strategy 2: Comprehensive paginated search for Milled Products (sizing stock)
+            print("🔎 Comprehensive search for sizing stock products with pagination...")
+            search_result = self._search_sizing_stock_products(max_pages=20)  # Comprehensive scan for complete mapping
             results["strategies_attempted"].append("product_search")
 
             if search_result["success"]:
