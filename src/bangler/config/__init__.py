@@ -1,0 +1,1 @@
+"""Configuration management for pricing and settings."""

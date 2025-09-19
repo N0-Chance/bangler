@@ -18,7 +18,9 @@
 27 - 79.37
 
 Size - MM
+Inside to inside
 
+Customer Variables
 v1 - Size (inside to inside in MM)
 v2 - Metal Color + Quality
 v3 - Width (MM)
