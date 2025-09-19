@@ -4,6 +4,7 @@ Direct CSV parsing for sizing stock products from Stuller export
 """
 
 import csv
+import re
 import sys
 from pathlib import Path
 from typing import Dict, List, Any, Optional
@@ -16,12 +17,35 @@ class SizingStockLookup:
         if csv_path:
             self.csv_path = Path(csv_path)
         else:
-            # Default to the sizing stock CSV in docs
-            self.csv_path = Path(__file__).parent.parent.parent.parent / "docs" / "sizingstock-20250919.csv"
+            # Auto-detect the most recent sizing stock CSV in data directory
+            self.csv_path = self._find_latest_csv()
 
         self.products = []
         self._elements_cache = {}  # Cache for parsed DescriptiveElements
         self._load_csv()
+
+    def _find_latest_csv(self) -> Path:
+        """Find the most recent sizing stock CSV file based on date in filename"""
+        data_dir = Path(__file__).parent.parent / "data"
+
+        # Look for files matching pattern: sizingstock-YYYYMMDD.csv
+        pattern = re.compile(r'sizingstock-(\d{8})\.csv')
+        latest_date = None
+        latest_file = None
+
+        for csv_file in data_dir.glob("sizingstock-*.csv"):
+            match = pattern.match(csv_file.name)
+            if match:
+                date_str = match.group(1)
+                if latest_date is None or date_str > latest_date:
+                    latest_date = date_str
+                    latest_file = csv_file
+
+        if latest_file is None:
+            raise FileNotFoundError(f"No sizing stock CSV files found in {data_dir}")
+
+        print(f"📅 Using sizing stock CSV: {latest_file.name} (date: {latest_date})")
+        return latest_file
 
     def _load_csv(self) -> None:
         """Load sizing stock products from CSV file"""
