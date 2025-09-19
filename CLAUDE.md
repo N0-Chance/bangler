@@ -30,12 +30,14 @@ Python system for real-time custom bangle pricing at Askew Jewelers. Integrates 
 3. Real-time API call for current pricing (no cache - live metal markets)
 4. Apply pricing: Material cost + $475 flat rate (configurable)
 
-## Current Status
-**Phase 1**: Building discovery tools to map all sizing stock SKUs and specifications
-**Next**: Implement Stuller API client adapted from s2s2 patterns
-
 ## Key Principles
 - Real-time pricing (no stale cache)
 - "Never assume anything" with Stuller API
 - Modular design for CLI → web evolution
 - Comprehensive error handling with fallback messaging
+
+## Serena Workflow (Token-Efficient Code Analysis)
+1. **Start with overview** - Use `get_symbols_overview` before reading files
+2. **Navigate precisely** - Use `find_symbol` to target specific functions/classes
+3. **Read selectively** - Only use `include_body=true` when you need implementation
+4. **NEVER read entire files** unless absolutely necessary - use semantic tools first  
