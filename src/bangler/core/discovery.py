@@ -4,6 +4,7 @@ Direct CSV parsing for sizing stock products from Stuller export
 """
 
 import csv
+import sys
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
@@ -19,6 +20,7 @@ class SizingStockLookup:
             self.csv_path = Path(__file__).parent.parent.parent.parent / "docs" / "sizingstock-20250919.csv"
 
         self.products = []
+        self._elements_cache = {}  # Cache for parsed DescriptiveElements
         self._load_csv()
 
     def _load_csv(self) -> None:
@@ -30,7 +32,14 @@ class SizingStockLookup:
             reader = csv.DictReader(f)
             self.products = list(reader)
 
+        # Memory usage logging
+        memory_mb = sys.getsizeof(self.products) / 1024 / 1024
         print(f"✅ Loaded {len(self.products)} sizing stock products from CSV")
+        print(f"📊 Memory usage: {memory_mb:.1f}MB (products list)")
+
+        if hasattr(self, '_elements_cache'):
+            cache_mb = sys.getsizeof(self._elements_cache) / 1024 / 1024
+            print(f"📊 Cache initialized: {cache_mb:.3f}MB")
 
     def find_sku(self, shape: str, quality: str, width: str, thickness: str = None, length: str = None) -> Optional[Dict[str, Any]]:
         """
@@ -47,20 +56,26 @@ class SizingStockLookup:
             Product dict with SKU and pricing info, or None if not found
         """
         for product in self.products:
-            # Check descriptive elements for match
-            elements = self._extract_descriptive_elements(product)
+            # Check descriptive elements for match (with caching)
+            product_id = product.get("Id", "")
+            if product_id in self._elements_cache:
+                elements = self._elements_cache[product_id]
+            else:
+                elements = self._extract_descriptive_elements(product)
+                if product_id:  # Only cache if we have a valid ID
+                    self._elements_cache[product_id] = elements
 
-            if (elements.get("Metal Shape", "").lower() == shape.lower() and
-                elements.get("Quality", "").lower() == quality.lower() and
-                elements.get("Width", "").lower() == width.lower()):
+            if (elements.get("Metal Shape", "").strip().lower() == shape.lower() and
+                elements.get("Quality", "").strip().lower() == quality.lower() and
+                elements.get("Width", "").strip().lower() == width.lower()):
 
                 # Optional thickness check
-                if thickness and elements.get("Thickness", "").lower() != thickness.lower():
+                if thickness and elements.get("Thickness", "").strip().lower() != thickness.lower():
                     continue
 
                 # Optional length check (default to Bulk if not specified)
                 target_length = length or "Bulk"
-                if elements.get("Length", "").lower() != target_length.lower():
+                if elements.get("Length", "").strip().lower() != target_length.lower():
                     continue
 
                 return product
@@ -95,7 +110,14 @@ class SizingStockLookup:
         }
 
         for product in self.products:
-            elements = self._extract_descriptive_elements(product)
+            # Use caching for get_available_options too
+            product_id = product.get("Id", "")
+            if product_id in self._elements_cache:
+                elements = self._elements_cache[product_id]
+            else:
+                elements = self._extract_descriptive_elements(product)
+                if product_id:
+                    self._elements_cache[product_id] = elements
 
             if "Metal Shape" in elements:
                 options["shapes"].add(elements["Metal Shape"])
@@ -110,3 +132,15 @@ class SizingStockLookup:
 
         # Convert sets to sorted lists
         return {key: sorted(list(values)) for key, values in options.items()}
+
+    def get_cache_stats(self) -> Dict[str, Any]:
+        """Get performance statistics about the cache"""
+        cache_size = len(self._elements_cache)
+        cache_memory_mb = sys.getsizeof(self._elements_cache) / 1024 / 1024
+
+        return {
+            "cached_products": cache_size,
+            "total_products": len(self.products),
+            "cache_hit_ratio": f"{cache_size}/{len(self.products)}" if self.products else "0/0",
+            "cache_memory_mb": round(cache_memory_mb, 3)
+        }
