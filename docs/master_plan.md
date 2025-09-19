@@ -97,10 +97,6 @@ bangler/
 
 ### Stuller API Integration Strategy
 
-**Authentication**: HTTP Basic Auth using credentials from `.env`:
-- Username: `AskewDev`
-- Password: `732yruhdvjfl32asd847jndsjf121392jnSJHSIAuw718^@*c8bh@@jmasd`
-
 **API Approach**:
 - **Target Endpoint**: `POST /api/v2/products`
 - **Product Type**: "Sizing Stock" products (not "blanks")

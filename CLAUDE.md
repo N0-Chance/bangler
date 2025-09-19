@@ -3,43 +3,39 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Purpose
-This is a Python script project for pricing custom bangles at Askew Jewelers. The script integrates with Stuller's API to get real-time material costs and applies markup calculations for handmade jewelry pricing.
+Python system for real-time custom bangle pricing at Askew Jewelers. Integrates with Stuller's API for live material costs, replacing manual pricing with systematic calculations.
 
-## Core Functionality
-The project aims to create a script that takes 4 customer-determined variables:
-- **Size**: 10-27 (maps to specific MM measurements via lookup table)
-- **Metal Color + Quality**: e.g., 14K Yellow Gold, 18K White Gold
-- **Width (MM)**: Variable width options
-- **Thickness (MM)**: Variable thickness options
+## Current Architecture
+**Structure**: `src/bangler/` with modular components (api, core, models, utils, cli)
+**Phases**: 1) Discovery tools → 2) CLI interface → 3) Web interface
+**Key Files**: `docs/master_plan.md` (comprehensive plan), `bangle_size.txt` (size conversion), `.env` (Stuller credentials)
 
-## Key Data Mappings
-Size to MM conversion table is defined in `bangle_size.txt`:
-- Size 10 = 52.37mm, Size 15 = 60.32mm, Size 20 = 68.24mm, Size 25 = 76.20mm, etc.
-- These represent inside-to-inside measurements in MM
+## Customer Variables (5 total)
+- **Size**: 10-27 → MM via `bangle_size.txt` lookup
+- **Metal Shape**: Flat, Comfort Fit, Low Dome, Half Round, Square, Triangle
+- **Quality**: 14K/18K Yellow/White/Rose Gold, etc.
+- **Width**: 1mm, 2mm, 3mm, 4mm, 6mm, 8mm, 10mm
+- **Thickness**: 0.75-1.75mm (shape-dependent availability)
 
-## API Integration Approach
-- **Target API**: Stuller API v2 products endpoint
-- **Product Type**: "Sizing Stock" (not "blanks")
-- **Method**: Specific SKU lookup rather than filtered search
-- **Experience Note**: Developer has extensive API familiarity through S2S2 project
+## Stuller API Integration
+- **Endpoint**: `POST /api/v2/products` with specific SKU lookup
+- **Product Type**: "Sizing Stock" (complex variable dependencies)
+- **Auth**: HTTP Basic Auth via `.env` credentials
+- **Patterns**: Proven s2s2 client approach (`/home/chance/Code/s2s2/src/s2s2/api/stuller.py`)
+- **SKU Challenge**: No predictable structure, requires discovery mapping
 
-## Architecture Plan
-```python
-def get_bangle_price():
-    # 1. Input prompts for 4 variables
-    # 2. Size-to-MM conversion (dictionary lookup)
-    # 3. Build appropriate SKU from options
-    # 4. Stuller API call for specific SKU
-    # 5. Apply markup calculations
-    # 6. Return final customer price with breakdown
-```
+## Business Logic
+1. Size → circumference → material length needed (math TBD)
+2. Round to nearest inch (Stuller selling unit)
+3. Real-time API call for current pricing (no cache - live metal markets)
+4. Apply pricing: Material cost + $475 flat rate (configurable)
 
-## Business Context
-- Family jewelry business (Askew Jewelers)
-- Father hand-pounds bangles into shape
-- Currently uses manual/inconsistent pricing
-- Simple product: no gems, just shaped metal bangles
-- Goal: systematic pricing based on real material costs
+## Current Status
+**Phase 1**: Building discovery tools to map all sizing stock SKUs and specifications
+**Next**: Implement Stuller API client adapted from s2s2 patterns
 
-## Development Status
-Project is in planning/documentation phase. No code files exist yet. Ready for API exploration and SKU mapping implementation.
+## Key Principles
+- Real-time pricing (no stale cache)
+- "Never assume anything" with Stuller API
+- Modular design for CLI → web evolution
+- Comprehensive error handling with fallback messaging
