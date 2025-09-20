@@ -37,7 +37,7 @@ class BanglerConfig:
         'max_size': 27,
         'valid_shapes': ['Flat', 'Comfort Fit', 'Low Dome', 'Half Round', 'Square', 'Triangle'],
         'valid_colors': ['Yellow', 'White', 'Rose', 'Green', 'Sterling Silver'],
-        'valid_qualities': ['10k', '14k', '18k']
+        'valid_qualities': ['10K', '14K', '18K']  # Fixed: uppercase K to match CSV data
     }
 
     # Logging Configuration

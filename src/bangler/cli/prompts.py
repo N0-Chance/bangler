@@ -161,19 +161,27 @@ class BanglePrompter:
         except ValueError as e:
             print(f"\n❌ {e}")
             
-            # Show available alternatives for this shape
+            # Show available alternatives - widths for this shape/quality combination
             available_options = self.sizing_stock.get_nested_options_for_cli()
-            if metal_shape in available_options:
-                available_qualities = list(available_options[metal_shape].keys())
-                print(f"\n💡 Available qualities for {metal_shape}:")
-                for quality in available_qualities[:5]:  # Show first 5
-                    print(f"   • {quality}")
-                if len(available_qualities) > 5:
-                    print(f"   ... and {len(available_qualities) - 5} more")
-            else:
-                print(f"\n💡 Available shapes:")
-                for shape in list(available_options.keys())[:5]:
-                    print(f"   • {shape}")
+            try:
+                if metal_shape in available_options and quality_string in available_options[metal_shape]:
+                    available_widths = list(available_options[metal_shape][quality_string].keys())
+                    print(f"\n💡 Available widths for {metal_shape} {quality_string}:")
+                    for width_option in available_widths:  # Show all widths
+                        print(f"   • {width_option}")
+                elif metal_shape in available_options:
+                    # Show available qualities for this shape if quality not found
+                    available_qualities = list(available_options[metal_shape].keys())
+                    print(f"\n💡 Available qualities for {metal_shape}:")
+                    for quality in available_qualities:  # Show all qualities
+                        print(f"   • {quality}")
+                else:
+                    # Show available shapes if shape not found
+                    print(f"\n💡 Available shapes:")
+                    for shape in available_options.keys():  # Show all shapes
+                        print(f"   • {shape}")
+            except KeyError:
+                print(f"\n💡 This combination may not be available. Please try different selections.")
             
             print("\nPlease restart and try a different combination.")
             return None
@@ -188,14 +196,18 @@ class BanglePrompter:
             # Show available alternatives for this width
             available_options = self.sizing_stock.get_nested_options_for_cli()
             try:
-                available_widths = list(available_options[metal_shape][quality_string].keys())
-                print(f"\n💡 Available widths for {metal_shape} {quality_string}:")
-                for w in available_widths[:5]:
-                    print(f"   • {w}")
-                if len(available_widths) > 5:
-                    print(f"   ... and {len(available_widths) - 5} more")
+                available_thicknesses = available_options[metal_shape][quality_string][width]
+                print(f"\n💡 Available thicknesses for {metal_shape} {quality_string} {width}:")
+                for thickness_option in available_thicknesses:  # Show all thicknesses
+                    print(f"   • {thickness_option}")
             except KeyError:
-                print(f"\n💡 This combination may not be available. Please try different selections.")
+                try:
+                    available_widths = list(available_options[metal_shape][quality_string].keys())
+                    print(f"\n💡 Available widths for {metal_shape} {quality_string}:")
+                    for w in available_widths:  # Show all widths
+                        print(f"   • {w}")
+                except KeyError:
+                    print(f"\n💡 This combination may not be available. Please try different selections.")
             
             print("\nPlease restart and try a different combination.")
             return None
