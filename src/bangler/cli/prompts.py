@@ -21,64 +21,91 @@ class BanglePrompter:
             instruction="(Size determines the inside diameter of the bangle)"
         ).ask()
 
+        # Handle Ctrl+C (returns None)
+        if size_str is None:
+            raise KeyboardInterrupt()
+
         return int(size_str)
 
     def prompt_metal_shape(self) -> str:
         """Step 2: Metal Shape selection"""
-        return questionary.select(
+        shape = questionary.select(
             "Select metal shape:",
             choices=self.rules['valid_shapes'],
             instruction="(Shape affects available width and thickness options)"
         ).ask()
 
+        # Handle Ctrl+C (returns None)
+        if shape is None:
+            raise KeyboardInterrupt()
+
+        return shape
+
     def prompt_metal_color(self) -> str:
         """Step 3: Metal Color selection"""
-        return questionary.select(
+        color = questionary.select(
             "Select metal color:",
             choices=self.rules['valid_colors'],
             instruction="(Sterling Silver skips quality selection)"
         ).ask()
+
+        # Handle Ctrl+C (returns None)
+        if color is None:
+            raise KeyboardInterrupt()
+
+        return color
 
     def prompt_metal_quality(self, color: str) -> Optional[str]:
         """Step 4: Metal Quality selection (skipped if Sterling Silver)"""
         if color == "Sterling Silver":
             return None
 
-        return questionary.select(
+        quality = questionary.select(
             f"Select {color} gold quality:",
             choices=self.rules['valid_qualities'],
             instruction="(Higher karat = more gold content = higher cost)"
         ).ask()
 
+        # Handle Ctrl+C (returns None)
+        if quality is None:
+            raise KeyboardInterrupt()
+
+        return quality
+
     def prompt_width(self, shape: str, quality_string: str) -> str:
         """Step 5: Width selection (filtered by shape)"""
-        available_options = self.sizing_stock.get_available_options()
+        available_options = self.sizing_stock.get_nested_options_for_cli()
 
         if shape not in available_options:
             raise ValueError(f"No options available for shape: {shape}")
 
-        # Get unique widths for this shape
+        # Get unique widths for this shape and quality
         shape_data = available_options[shape]
         available_widths = set()
 
-        for quality_data in shape_data.values():
-            if quality_string in quality_data:
-                available_widths.update(quality_data[quality_string].keys())
+        if quality_string in shape_data:
+            available_widths.update(shape_data[quality_string].keys())
 
         if not available_widths:
             raise ValueError(f"No widths available for {shape} {quality_string}")
 
         width_choices = sorted(available_widths, key=lambda x: float(x.replace(' Mm', '')))
 
-        return questionary.select(
+        width = questionary.select(
             f"Select width for {shape} {quality_string}:",
             choices=width_choices,
             instruction="(Width affects the bangle's appearance and material cost)"
         ).ask()
 
+        # Handle Ctrl+C (returns None)
+        if width is None:
+            raise KeyboardInterrupt()
+
+        return width
+
     def prompt_thickness(self, shape: str, quality_string: str, width: str) -> str:
         """Step 6: Thickness selection (filtered by shape and width)"""
-        available_options = self.sizing_stock.get_available_options()
+        available_options = self.sizing_stock.get_nested_options_for_cli()
 
         # Navigate to thickness options
         try:
@@ -88,11 +115,17 @@ class BanglePrompter:
 
         thickness_choices = sorted(thickness_options, key=lambda x: float(x.replace(' Mm', '')))
 
-        return questionary.select(
+        thickness = questionary.select(
             f"Select thickness for {shape} {quality_string} {width}:",
             choices=thickness_choices,
             instruction="(Thickness affects strength and material needed)"
         ).ask()
+
+        # Handle Ctrl+C (returns None)
+        if thickness is None:
+            raise KeyboardInterrupt()
+
+        return thickness
 
     def collect_complete_specification(self) -> BangleSpec:
         """Complete guided workflow to collect all bangle specifications"""
@@ -126,8 +159,23 @@ class BanglePrompter:
             width = self.prompt_width(metal_shape, quality_string)
             print(f"✓ Width: {width}")
         except ValueError as e:
-            print(f"Error: {e}")
-            print("Please try a different shape or quality combination.")
+            print(f"\n❌ {e}")
+            
+            # Show available alternatives for this shape
+            available_options = self.sizing_stock.get_nested_options_for_cli()
+            if metal_shape in available_options:
+                available_qualities = list(available_options[metal_shape].keys())
+                print(f"\n💡 Available qualities for {metal_shape}:")
+                for quality in available_qualities[:5]:  # Show first 5
+                    print(f"   • {quality}")
+                if len(available_qualities) > 5:
+                    print(f"   ... and {len(available_qualities) - 5} more")
+            else:
+                print(f"\n💡 Available shapes:")
+                for shape in list(available_options.keys())[:5]:
+                    print(f"   • {shape}")
+            
+            print("\nPlease restart and try a different combination.")
             return None
 
         # Step 6: Thickness (filtered by shape and width)
@@ -135,8 +183,21 @@ class BanglePrompter:
             thickness = self.prompt_thickness(metal_shape, quality_string, width)
             print(f"✓ Thickness: {thickness}")
         except ValueError as e:
-            print(f"Error: {e}")
-            print("Please try a different width.")
+            print(f"\n❌ {e}")
+            
+            # Show available alternatives for this width
+            available_options = self.sizing_stock.get_nested_options_for_cli()
+            try:
+                available_widths = list(available_options[metal_shape][quality_string].keys())
+                print(f"\n💡 Available widths for {metal_shape} {quality_string}:")
+                for w in available_widths[:5]:
+                    print(f"   • {w}")
+                if len(available_widths) > 5:
+                    print(f"   ... and {len(available_widths) - 5} more")
+            except KeyError:
+                print(f"\n💡 This combination may not be available. Please try different selections.")
+            
+            print("\nPlease restart and try a different combination.")
             return None
 
         # Create and return complete specification

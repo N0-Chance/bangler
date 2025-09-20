@@ -157,6 +157,54 @@ class SizingStockLookup:
         # Convert sets to sorted lists
         return {key: sorted(list(values)) for key, values in options.items()}
 
+    def get_nested_options_for_cli(self) -> Dict[str, Dict[str, Dict[str, List[str]]]]:
+        """Get options structured for CLI prompts: shape -> quality -> width -> thicknesses"""
+        nested_options = {}
+        
+        for product in self.products:
+            # Use caching for performance
+            product_id = product.get("Id", "")
+            if product_id in self._elements_cache:
+                elements = self._elements_cache[product_id]
+            else:
+                elements = self._extract_descriptive_elements(product)
+                if product_id:
+                    self._elements_cache[product_id] = elements
+            
+            # Extract the key elements we need
+            shape = elements.get("Metal Shape")
+            quality = elements.get("Quality") 
+            width = elements.get("Width")
+            thickness = elements.get("Thickness")
+            
+            # Skip if any required element is missing
+            if not all([shape, quality, width, thickness]):
+                continue
+                
+            # Build nested structure
+            if shape not in nested_options:
+                nested_options[shape] = {}
+            
+            if quality not in nested_options[shape]:
+                nested_options[shape][quality] = {}
+                
+            if width not in nested_options[shape][quality]:
+                nested_options[shape][quality][width] = []
+                
+            # Add thickness if not already present
+            if thickness not in nested_options[shape][quality][width]:
+                nested_options[shape][quality][width].append(thickness)
+        
+        # Sort all lists for consistent ordering
+        for shape in nested_options:
+            for quality in nested_options[shape]:
+                for width in nested_options[shape][quality]:
+                    nested_options[shape][quality][width].sort(
+                        key=lambda x: float(x.replace(' Mm', ''))
+                    )
+        
+        return nested_options
+
     def get_cache_stats(self) -> Dict[str, Any]:
         """Get performance statistics about the cache"""
         cache_size = len(self._elements_cache)
