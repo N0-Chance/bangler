@@ -5,6 +5,7 @@ from ..models.bangle import BangleSpec, MaterialCalculation
 from ..models.pricing import BanglePrice, PricingError
 from ..utils.size_conversion import SizeConverter
 from ..utils.material_calculation import MaterialCalculator
+from ..utils.material_density import MaterialDensity
 from ..utils.formatting import BusinessFormatter
 from ..api.stuller_client import StullerClient
 from .discovery import SizingStockLookup
@@ -18,6 +19,7 @@ class PricingEngine:
     def __init__(self):
         self.size_converter = SizeConverter()
         self.material_calculator = MaterialCalculator()
+        self.material_density = MaterialDensity()
         self.sizing_stock = SizingStockLookup()
         self.stuller_client = StullerClient()
         self.config = BanglerConfig.get_pricing_config()
@@ -77,8 +79,12 @@ class PricingEngine:
 
             product = products[0]  # Get first (should be only) product
 
-            # Extract price from new API format: {'Value': 87.08678, 'CurrencyCode': 'USD'}
+            # Extract price and weight data from API response
             price_obj = product.get('Price')
+            weight = product.get('Weight')
+            weight_unit = product.get('WeightUnitOfMeasure')
+            unit_of_sale = product.get('UnitOfSale')
+
             if not price_obj:
                 logger.error(f"No price data in product for SKU {sku}: {product}")
                 return BusinessFormatter.format_error_for_user(
@@ -101,10 +107,15 @@ class PricingEngine:
                     f"Invalid price format for SKU {sku}"
                 )
 
-            # Step 5: Calculate final pricing
+            # Step 5: Calculate final pricing using weight-based calculation
             material_cost_per_dwt = Decimal(str(price_value))
-            # Note: DWT conversion logic may need refinement based on Stuller's pricing units
-            material_total_cost = material_cost_per_dwt * Decimal(str(material_calc.rounded_length_in))
+
+            # Calculate material weight needed based on dimensions and length
+            material_weight_dwt = self._calculate_material_weight_dwt(
+                material_calc, spec, weight, weight_unit, unit_of_sale
+            )
+
+            material_total_cost = material_cost_per_dwt * material_weight_dwt
 
             base_price = self.config['base_price']
             total_price = material_total_cost + base_price
@@ -115,6 +126,7 @@ class PricingEngine:
                 sku=sku,
                 material_cost_per_dwt=material_cost_per_dwt,
                 material_length_in=material_calc.rounded_length_in,
+                material_weight_dwt=material_weight_dwt,
                 material_total_cost=material_total_cost,
                 base_price=base_price,
                 total_price=total_price
@@ -126,6 +138,50 @@ class PricingEngine:
         except Exception as e:
             logger.error(f"Unexpected error in pricing calculation: {e}")
             return BusinessFormatter.format_error_for_user('unknown', str(e))
+
+    def _calculate_material_weight_dwt(self, material_calc: MaterialCalculation, spec: BangleSpec,
+                                       api_weight: float, weight_unit: str, unit_of_sale: str) -> Decimal:
+        """
+        Calculate the weight in DWT needed using proper material science
+
+        This method uses karat-specific material densities to calculate accurate weights,
+        replacing the flawed reference-based approach that caused pricing errors.
+
+        Args:
+            material_calc: Material calculation with length needed
+            spec: Bangle specification with dimensions
+            api_weight: Weight from API response (not used - always normalized to 1.0)
+            weight_unit: Weight unit from API (should be 'DWT')
+            unit_of_sale: Unit of sale from API (should be 'DWT')
+
+        Returns:
+            Weight in DWT needed for the calculated length
+        """
+        # Get material dimensions
+        width_mm = float(spec.width.replace(' Mm', '').strip())
+        thickness_mm = float(spec.thickness.replace(' Mm', '').strip())
+        length_inches = material_calc.rounded_length_in
+
+        # Use proper material science calculation
+        calculation = self.material_density.calculate_theoretical_weight(
+            width_mm=width_mm,
+            thickness_mm=thickness_mm,
+            length_inches=length_inches,
+            quality=spec.metal_quality or spec.metal_color,
+            color=spec.metal_color
+        )
+
+        # Comprehensive logging for verification and debugging
+        logger.info(f"=== MATERIAL WEIGHT CALCULATION ===")
+        logger.info(f"Dimensions: {width_mm}mm × {thickness_mm}mm × {length_inches}in")
+        logger.info(f"Quality: {spec.metal_quality or spec.metal_color} {spec.metal_color}")
+        logger.info(f"Density used: {calculation['density_g_per_cm3']:.3f} g/cm³")
+        logger.info(f"Volume per inch: {calculation['volume_cm3_per_in']:.6f} cm³/in")
+        logger.info(f"Weight per inch: {calculation['dwt_per_in']:.6f} DWT/in")
+        logger.info(f"Total weight: {calculation['total_weight_dwt']:.6f} DWT")
+        logger.info(f"==================================")
+
+        return Decimal(str(calculation['total_weight_dwt']))
 
     def get_available_options_for_shape(self, shape: str) -> dict:
         """Get available widths and thicknesses for a given shape"""
@@ -231,8 +287,12 @@ class PricingEngine:
 
             product = products[0]  # Get first (should be only) product
 
-            # Extract price from new API format: {'Value': 87.08678, 'CurrencyCode': 'USD'}
+            # Extract price and weight data from API response
             price_obj = product.get('Price')
+            weight = product.get('Weight')
+            weight_unit = product.get('WeightUnitOfMeasure')
+            unit_of_sale = product.get('UnitOfSale')
+
             if not price_obj:
                 logger.error(f"No price data in product for SKU {sku}: {product}")
                 return BusinessFormatter.format_error_for_user(
@@ -255,15 +315,24 @@ class PricingEngine:
                     f"Invalid price format for SKU {sku}"
                 )
 
-            # Step 5: Calculate final pricing
+            # Step 5: Calculate final pricing using weight-based calculation
             material_cost_per_dwt = Decimal(str(price_value))
             if display:
-                display.show_progress_step("Real-time pricing", f"${material_cost_per_dwt:.2f} per DWT")
+                display.show_progress_step("Stuller pricing", f"${material_cost_per_dwt:.2f} per DWT")
 
             if display:
+                display.show_progress_step("Calculating material weight needed")
+
+            # Calculate material weight needed based on dimensions and length
+            material_weight_dwt = self._calculate_material_weight_dwt(
+                material_calc, spec, weight, weight_unit, unit_of_sale
+            )
+
+            if display:
+                display.show_progress_step("Material weight", f"{material_weight_dwt:.4f} DWT")
                 display.show_progress_step("Applying pricing formula")
-            # Note: DWT conversion logic may need refinement based on Stuller's pricing units
-            material_total_cost = material_cost_per_dwt * Decimal(str(material_calc.rounded_length_in))
+
+            material_total_cost = material_cost_per_dwt * material_weight_dwt
 
             base_price = self.config['base_price']
             total_price = material_total_cost + base_price
@@ -277,6 +346,7 @@ class PricingEngine:
                 sku=sku,
                 material_cost_per_dwt=material_cost_per_dwt,
                 material_length_in=material_calc.rounded_length_in,
+                material_weight_dwt=material_weight_dwt,
                 material_total_cost=material_total_cost,
                 base_price=base_price,
                 total_price=total_price
@@ -288,3 +358,47 @@ class PricingEngine:
         except Exception as e:
             logger.error(f"Unexpected error in pricing calculation: {e}")
             return BusinessFormatter.format_error_for_user('unknown', str(e))
+
+    def _calculate_material_weight_dwt(self, material_calc: MaterialCalculation, spec: BangleSpec,
+                                       api_weight: float, weight_unit: str, unit_of_sale: str) -> Decimal:
+        """
+        Calculate the weight in DWT needed using proper material science
+
+        This method uses karat-specific material densities to calculate accurate weights,
+        replacing the flawed reference-based approach that caused pricing errors.
+
+        Args:
+            material_calc: Material calculation with length needed
+            spec: Bangle specification with dimensions
+            api_weight: Weight from API response (not used - always normalized to 1.0)
+            weight_unit: Weight unit from API (should be 'DWT')
+            unit_of_sale: Unit of sale from API (should be 'DWT')
+
+        Returns:
+            Weight in DWT needed for the calculated length
+        """
+        # Get material dimensions
+        width_mm = float(spec.width.replace(' Mm', '').strip())
+        thickness_mm = float(spec.thickness.replace(' Mm', '').strip())
+        length_inches = material_calc.rounded_length_in
+
+        # Use proper material science calculation
+        calculation = self.material_density.calculate_theoretical_weight(
+            width_mm=width_mm,
+            thickness_mm=thickness_mm,
+            length_inches=length_inches,
+            quality=spec.metal_quality or spec.metal_color,
+            color=spec.metal_color
+        )
+
+        # Comprehensive logging for verification and debugging
+        logger.info(f"=== MATERIAL WEIGHT CALCULATION ===")
+        logger.info(f"Dimensions: {width_mm}mm × {thickness_mm}mm × {length_inches}in")
+        logger.info(f"Quality: {spec.metal_quality or spec.metal_color} {spec.metal_color}")
+        logger.info(f"Density used: {calculation['density_g_per_cm3']:.3f} g/cm³")
+        logger.info(f"Volume per inch: {calculation['volume_cm3_per_in']:.6f} cm³/in")
+        logger.info(f"Weight per inch: {calculation['dwt_per_in']:.6f} DWT/in")
+        logger.info(f"Total weight: {calculation['total_weight_dwt']:.6f} DWT")
+        logger.info(f"==================================")
+
+        return Decimal(str(calculation['total_weight_dwt']))

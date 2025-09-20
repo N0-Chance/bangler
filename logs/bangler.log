@@ -87,3 +87,427 @@
 2025-09-20 13:14:59,326 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
 2025-09-20 13:14:59,327 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
 2025-09-20 13:14:59,894 - bangler.core.pricing_engine - INFO - Pricing complete: Material $261.260340, Base $475.00, Total $736.260340
+2025-09-20 14:10:44,145 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,183 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,198 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,213 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,229 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,244 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,260 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,275 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,331 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,345 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,360 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,375 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,389 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,403 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,446 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,461 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,477 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,497 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,514 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,533 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,561 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,611 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,628 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,651 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,666 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,683 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,700 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,716 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,779 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,794 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,810 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,824 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,839 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,854 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,870 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,916 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,931 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,946 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,961 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,976 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:44,992 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,007 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,057 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,073 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,087 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,102 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,116 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,130 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,170 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,185 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,200 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,215 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,229 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,243 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,257 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,300 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,314 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,328 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,343 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,357 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,371 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,386 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,434 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,450 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,464 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,479 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,494 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,508 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,522 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,564 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,580 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,594 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,609 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,623 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,638 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,652 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,697 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,711 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,725 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,740 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,754 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,768 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,807 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,821 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,836 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,850 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,864 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,879 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,893 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,933 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,948 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,962 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,977 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:45,992 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,006 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,021 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,063 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,077 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,092 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,106 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,122 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,138 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,152 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,196 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,210 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,224 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,239 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,254 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,268 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,282 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,325 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,339 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,353 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,368 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,383 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,397 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,436 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,450 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,465 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,481 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,495 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,510 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,524 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,568 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,582 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,596 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,611 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,625 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,640 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,656 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,702 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,717 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,732 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,747 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,761 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,775 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,789 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,830 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,845 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,859 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,873 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,887 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,901 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,916 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,960 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,975 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:46,991 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,006 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,021 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,035 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,077 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,093 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,108 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,123 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,138 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,152 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,167 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,221 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,235 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,249 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,264 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,279 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,293 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,311 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,393 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,411 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,427 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,441 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,457 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,473 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,487 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,535 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,553 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,575 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,592 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,605 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,620 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,635 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,691 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,707 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,721 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,736 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,750 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,765 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,804 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,818 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,834 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,849 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,864 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,880 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,901 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,959 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,973 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:47,990 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,014 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,035 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,049 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,065 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,126 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,140 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,155 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,169 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,184 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,198 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,213 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,260 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,276 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,291 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,306 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,320 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,335 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,350 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,396 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,411 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,425 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,439 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,453 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,468 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,504 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,518 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,533 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,547 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,561 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,575 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,589 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,630 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,644 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,658 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,672 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,686 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,700 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,714 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,760 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,775 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,789 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,803 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,818 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,832 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,846 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,887 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,901 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,915 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,930 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,944 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,958 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:48,972 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,014 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,029 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,043 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,057 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,071 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,085 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,122 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,137 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,152 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,166 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,180 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,195 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,209 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,251 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,265 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,280 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,294 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,309 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,323 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,337 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,381 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,395 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,410 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,424 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,437 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,451 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,465 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,505 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,520 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,533 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,547 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,561 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,576 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,590 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,631 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,645 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,659 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,674 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,688 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,701 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,740 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,755 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,769 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,784 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,799 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,814 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,827 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,868 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,883 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,896 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,912 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,926 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,940 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,954 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:49,998 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,014 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,028 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,042 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,056 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,070 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,083 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,124 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,138 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,152 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,167 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,181 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,196 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,211 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,261 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,276 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,290 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,304 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,319 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,333 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,374 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,388 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,403 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,418 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,433 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,447 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,460 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,505 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,519 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,533 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,548 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,562 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,576 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,591 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,635 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,650 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,665 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,679 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,693 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,708 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,722 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,763 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,778 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,791 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,806 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,821 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,835 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,850 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,897 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,913 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,927 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,942 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,957 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:50,971 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,010 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,024 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,039 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,053 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,067 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,081 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,095 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,140 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,154 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,168 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,183 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,198 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,213 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,228 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,285 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,301 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,317 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,333 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,348 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,365 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,380 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,446 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,462 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,477 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,492 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,507 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,522 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,538 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,593 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:10:51,612 - src.bangler.cli.interface - ERROR - Error collecting specification: 
+2025-09-20 14:11:28,855 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 14:11:28,855 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 14:11:28,855 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 52.37mm, thickness 0.75 Mm
+2025-09-20 14:11:28,855 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 14:11:28,857 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 14:11:29,435 - bangler.core.pricing_engine - INFO - Weight calculation: 1.0mm × 0.75mm × 3.0in = 0.375000 DWT
+2025-09-20 14:11:29,435 - bangler.core.pricing_engine - INFO - Pricing complete: Material $32.65754250, Base $475.00, Total $507.65754250
+2025-09-20 14:23:03,508 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 14:23:03,508 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 14:23:03,508 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 52.37mm, thickness 0.75 Mm
+2025-09-20 14:23:03,508 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 14:23:03,509 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 14:23:04,052 - bangler.core.pricing_engine - INFO - Weight calculation: 1.0mm × 0.75mm × 3.0in = 0.375000 DWT
+2025-09-20 14:23:04,052 - bangler.core.pricing_engine - INFO - Pricing complete: Material $32.65754250, Base $475.00, Total $507.65754250
+2025-09-20 14:26:58,200 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='24K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 14:26:58,200 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 14:26:58,200 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 52.37mm, thickness 0.75 Mm
+2025-09-20 14:26:58,200 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 24K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 14:26:58,202 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:77264:P
+2025-09-20 14:26:58,805 - bangler.core.pricing_engine - INFO - Weight calculation: 1.0mm × 0.75mm × 3.0in = 0.375000 DWT
+2025-09-20 14:26:58,805 - bangler.core.pricing_engine - INFO - Pricing complete: Material $73.43644875, Base $475.00, Total $548.43644875
+2025-09-20 14:50:26,266 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 14:50:26,266 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 14:50:26,266 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 52.37mm, thickness 0.75 Mm
+2025-09-20 14:50:26,267 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 14:50:26,267 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 14:50:26,469 - bangler.core.pricing_engine - ERROR - Failed to get price for SKU SIZING STOCK:998842:P: {'products': [], 'next_page_token': None, 'total_products': 0, 'request_time_ms': 201, 'success': False, 'error': 'Authentication failed - check Stuller credentials', 'product_count': 0}
+2025-09-20 14:51:00,866 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 14:51:00,866 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 14:51:00,866 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 52.37mm, thickness 0.75 Mm
+2025-09-20 14:51:00,867 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 14:51:00,868 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 14:51:00,907 - bangler.core.pricing_engine - ERROR - Failed to get price for SKU SIZING STOCK:998842:P: {'products': [], 'next_page_token': None, 'total_products': 0, 'request_time_ms': 39, 'success': False, 'error': 'Authentication failed - check Stuller credentials', 'product_count': 0}
+2025-09-20 14:51:13,622 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 14:51:13,622 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 14:51:13,622 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 52.37mm, thickness 0.75 Mm
+2025-09-20 14:51:13,623 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 14:51:13,623 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 14:51:14,331 - bangler.core.pricing_engine - INFO - Weight calculation: 1.0mm × 0.75mm × 3.0in = 0.375000 DWT
+2025-09-20 14:51:14,331 - bangler.core.pricing_engine - INFO - Pricing complete: Material $32.65754250, Base $475.00, Total $507.65754250

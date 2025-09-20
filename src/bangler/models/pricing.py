@@ -8,6 +8,7 @@ class BanglePrice:
     sku: str                        # Stuller SKU found
     material_cost_per_dwt: Decimal  # From Stuller API (DWT units)
     material_length_in: float       # Inches needed
+    material_weight_dwt: Decimal    # Calculated weight needed (DWT)
     material_total_cost: Decimal    # Calculated material cost
     base_price: Decimal             # Configurable base ($475)
     total_price: Decimal            # Final customer price
@@ -24,7 +25,9 @@ class BanglePrice:
             "Base Price": f"${self.base_price:.2f}",
             "Total Price": f"${self.total_price:.2f}",
             "SKU": self.sku,
-            "Material Needed": f"{self.material_length_in:.2f} inches"
+            "Material Needed": f"{self.material_length_in:.2f} inches",
+            "Material Weight": f"{self.material_weight_dwt:.4f} DWT",
+            "Price per DWT": f"${self.material_cost_per_dwt:.2f}"
         }
 
 @dataclass
