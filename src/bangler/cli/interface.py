@@ -13,6 +13,7 @@ from .display import CLIDisplay
 from ..core.pricing_engine import PricingEngine
 from ..core.validation import BangleValidator
 from ..models.bangle import BangleSpec
+from ..models.pricing import BanglePrice
 from ..config.settings import BanglerConfig
 
 # Configure logging: Only log to file for INFO, console only for WARNING/ERROR
@@ -107,6 +108,11 @@ class BanglerCLI:
 
         # Display result
         self.display.show_price_result(result)
+
+        # Ask to open SKU page if pricing was successful
+        if isinstance(result, BanglePrice):  # Not PricingError
+            if self.display.prompt_open_sku_page(result.sku):
+                self.display.open_stuller_sku_page(result.sku)
 
 def main():
     """CLI entry point"""

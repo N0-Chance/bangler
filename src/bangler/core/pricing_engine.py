@@ -227,24 +227,24 @@ class PricingEngine:
             # Step 1: Convert size to circumference
             logger.info(f"Converting size {spec.size} to circumference")
             if display:
-                display.show_progress_step("Converting size to circumference", f"Size {spec.size}")
+                display.show_progress_step("Converting size to circumference", f"Size {spec.size}", thinking_time=0.06)
             circumference_mm = self.size_converter.size_to_circumference_mm(spec.size)
             if display:
-                display.show_progress_step("Circumference", f"{circumference_mm:.2f}mm")
+                display.show_progress_step("Circumference", f"{circumference_mm:.2f}mm", thinking_time=0.05)
 
             # Step 2: Calculate material length needed
             logger.info(f"Calculating material length for circumference {circumference_mm}mm, thickness {spec.thickness}")
             if display:
-                display.show_progress_step("Calculating material length needed")
+                display.show_progress_step("Calculating material length needed", thinking_time=0.06)
             thickness_mm = self.material_calculator.parse_thickness_string(spec.thickness)
             material_calc = self.material_calculator.calculate_material_length(circumference_mm, thickness_mm)
             if display:
-                display.show_progress_step("Material length needed", f"{material_calc.rounded_length_in:.2f} inches")
+                display.show_progress_step("Material length needed", f"{material_calc.rounded_length_in:.2f} inches", thinking_time=0.05)
 
             # Step 3: Find SKU using existing SizingStockLookup
             logger.info(f"Finding SKU for spec: {spec.metal_shape}, {spec.to_quality_string()}, {spec.width}, {spec.thickness}")
             if display:
-                display.show_progress_step("Finding Stuller SKU")
+                display.show_progress_step("Finding Stuller SKU", thinking_time=0.08)
             sku = self.sizing_stock.find_sku(
                 shape=spec.metal_shape,
                 quality=spec.to_quality_string(),
@@ -260,12 +260,12 @@ class PricingEngine:
                 )
 
             if display:
-                display.show_progress_step("Stuller SKU", sku)
+                display.show_progress_step("Stuller SKU", sku, thinking_time=0.05)
 
             # Step 4: Get real-time pricing from Stuller
             logger.info(f"Getting real-time price for SKU: {sku}")
             if display:
-                display.show_progress_step("Getting real-time pricing")
+                display.show_progress_step("Getting real-time pricing", thinking_time=0.08)
             api_response = self.stuller_client.get_sku_price(sku)
 
             # Check if API call succeeded - FIXED: correct logical check
@@ -318,10 +318,10 @@ class PricingEngine:
             # Step 5: Calculate final pricing using weight-based calculation
             material_cost_per_dwt = Decimal(str(price_value))
             if display:
-                display.show_progress_step("Stuller pricing", f"${material_cost_per_dwt:.2f} per DWT")
+                display.show_progress_step("Stuller pricing", f"${material_cost_per_dwt:.2f} per DWT", thinking_time=0.05)
 
             if display:
-                display.show_progress_step("Calculating material weight needed")
+                display.show_progress_step("Calculating material weight needed", thinking_time=0.06)
 
             # Calculate material weight needed based on dimensions and length
             material_weight_dwt = self._calculate_material_weight_dwt(
@@ -329,8 +329,8 @@ class PricingEngine:
             )
 
             if display:
-                display.show_progress_step("Material weight", f"{material_weight_dwt:.4f} DWT")
-                display.show_progress_step("Applying pricing formula")
+                display.show_progress_step("Material weight", f"{material_weight_dwt:.4f} DWT", thinking_time=0.05)
+                display.show_progress_step("Applying pricing formula", thinking_time=0.05)
 
             material_total_cost = material_cost_per_dwt * material_weight_dwt
 
@@ -338,7 +338,7 @@ class PricingEngine:
             total_price = material_total_cost + base_price
 
             if display:
-                display.show_progress_step("Final price", f"${material_total_cost:.2f} + ${base_price:.2f} = ${total_price:.2f}")
+                display.show_progress_step("Final price", f"${material_total_cost:.2f} + ${base_price:.2f} = ${total_price:.2f}", thinking_time=0.05)
 
             logger.info(f"Pricing complete: Material ${material_total_cost}, Base ${base_price}, Total ${total_price}")
 

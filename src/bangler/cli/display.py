@@ -1,5 +1,7 @@
-import sys
+import time
+import webbrowser
 from typing import Union
+import questionary
 from ..models.bangle import BangleSpec
 from ..models.pricing import BanglePrice, PricingError
 from ..utils.formatting import BusinessFormatter
@@ -25,12 +27,16 @@ Real-time pricing based on current Stuller material costs.
         print("\n🔄 Calculating pricing...")
 
     @staticmethod
-    def show_progress_step(step: str, data: str = None):
-        """Show individual progress step with optional data"""
+    def show_progress_step(step: str, data: str = None, thinking_time: float = 0.06):
+        """Show individual progress step with optional data and professional timing"""
         if data:
             print(f"   • {step}: {data}")
         else:
             print(f"   • {step}...")
+
+        # Add subtle "thinking time" for professional feel
+        if thinking_time > 0:
+            time.sleep(thinking_time)
 
     @staticmethod
     def show_price_result(result: Union[BanglePrice, PricingError]):
@@ -50,7 +56,7 @@ Real-time pricing based on current Stuller material costs.
 
         print(f"\n📋 Details:")
         print(f"   Stuller SKU: {price.sku}")
-        print(f"   Material Cost per DWT: ${price.material_cost_per_dwt:.2f}")
+        #print(f"   Material Cost per DWT: ${price.material_cost_per_dwt:.2f}")
         print(f"   Material Length Needed: {price.material_length_in:.2f} inches")
 
         # Highlight the final price
@@ -84,10 +90,50 @@ Real-time pricing based on current Stuller material costs.
         print(f"   Dimensions: {spec.width} × {spec.thickness}")
 
     @staticmethod
+    def prompt_open_sku_page(sku: str) -> bool:
+        """Ask if user wants to open the Stuller SKU page for ordering"""
+        try:
+            response = questionary.select(
+                "\n🛒 Would you like to open the Stuller SKU page for ordering?",
+                choices=[
+                    "Yes",
+                    "No"
+                ],
+                default="Yes"
+            ).ask()
+            return response == "Yes"
+        except (KeyboardInterrupt, EOFError):
+            return False
+
+    @staticmethod
+    def open_stuller_sku_page(sku: str):
+        """Open the Stuller SKU page in the default browser"""
+        url = f"https://stuller.com/search/results?query={sku}"
+
+        try:
+            print(f"\n🌐 Opening Stuller page for SKU: {sku}")
+            print(f"   URL: {url}")
+            webbrowser.open(url)
+            print("✅ Browser opened successfully!")
+        except Exception as e:
+            print(f"❌ Could not open browser: {e}")
+            print(f"💡 Please manually visit: {url}")
+
+    @staticmethod
     def prompt_continue() -> bool:
         """Ask if user wants to calculate another price"""
-        response = input("\nWould you like to price another bangle? (y/n): ").lower().strip()
-        return response in ['y', 'yes', '1', 'true']
+        try:
+            response = questionary.select(
+                "\n💍 Would you like to price another bangle?",
+                choices=[
+                    "Yes",
+                    "No"
+                ],
+                default="Yes"
+            ).ask()
+            return response == "Yes"
+        except (KeyboardInterrupt, EOFError):
+            return False
 
     @staticmethod
     def show_goodbye():
@@ -95,7 +141,7 @@ Real-time pricing based on current Stuller material costs.
         print("""
 Thank you for using the Askew Jewelers Bangler!
 
-For technical support or questions:
+For technical support or questions, please contact:
     support@askewjewelers.com
 
 Have a great day! 💍 

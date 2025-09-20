@@ -676,3 +676,108 @@
 2025-09-20 17:19:56,061 - bangler.core.pricing_engine - INFO - Total weight: 4.856492 DWT
 2025-09-20 17:19:56,062 - bangler.core.pricing_engine - INFO - ==================================
 2025-09-20 17:19:56,062 - bangler.core.pricing_engine - INFO - Pricing complete: Material $727.47930521702959144057, Base $475.00, Total $1202.47930521702959144057
+2025-09-20 17:38:56,082 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 17:38:56,082 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 17:38:56,082 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 164.52520726849747mm, thickness 0.75 Mm
+2025-09-20 17:38:56,082 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 17:38:56,083 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 17:38:56,588 - bangler.utils.material_density - INFO - Using standard density for 10K Yellow: 11.65 g/cm³
+2025-09-20 17:38:56,588 - bangler.core.pricing_engine - INFO - === MATERIAL WEIGHT CALCULATION ===
+2025-09-20 17:38:56,588 - bangler.core.pricing_engine - INFO - Dimensions: 1.0mm × 0.75mm × 6.75in
+2025-09-20 17:38:56,588 - bangler.core.pricing_engine - INFO - Quality: 10K Yellow Yellow
+2025-09-20 17:38:56,588 - bangler.core.pricing_engine - INFO - Density used: 11.650 g/cm³
+2025-09-20 17:38:56,588 - bangler.core.pricing_engine - INFO - Volume per inch: 0.019050 cm³/in
+2025-09-20 17:38:56,588 - bangler.core.pricing_engine - INFO - Weight per inch: 0.142706 DWT/in
+2025-09-20 17:38:56,588 - bangler.core.pricing_engine - INFO - Total weight: 0.963265 DWT
+2025-09-20 17:38:56,588 - bangler.core.pricing_engine - INFO - ==================================
+2025-09-20 17:38:56,589 - bangler.core.pricing_engine - INFO - Pricing complete: Material $83.887638513686983812364, Base $475.00, Total $558.887638513686983812364
+2025-09-20 17:39:52,501 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Green', metal_quality='14K Green', width='1.5 Mm', thickness='1 Mm')
+2025-09-20 17:39:52,502 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 17:39:52,502 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 164.52520726849747mm, thickness 1 Mm
+2025-09-20 17:39:52,502 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 14K Green, 1.5 Mm, 1 Mm
+2025-09-20 17:39:52,509 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:99950:P
+2025-09-20 17:39:52,919 - bangler.utils.material_density - INFO - Using standard density for 14K Green: 13.30 g/cm³
+2025-09-20 17:39:52,919 - bangler.core.pricing_engine - INFO - === MATERIAL WEIGHT CALCULATION ===
+2025-09-20 17:39:52,920 - bangler.core.pricing_engine - INFO - Dimensions: 1.5mm × 1.0mm × 6.75in
+2025-09-20 17:39:52,920 - bangler.core.pricing_engine - INFO - Quality: 14K Green Green
+2025-09-20 17:39:52,920 - bangler.core.pricing_engine - INFO - Density used: 13.300 g/cm³
+2025-09-20 17:39:52,920 - bangler.core.pricing_engine - INFO - Volume per inch: 0.038100 cm³/in
+2025-09-20 17:39:52,920 - bangler.core.pricing_engine - INFO - Weight per inch: 0.325835 DWT/in
+2025-09-20 17:39:52,921 - bangler.core.pricing_engine - INFO - Total weight: 2.199386 DWT
+2025-09-20 17:39:52,921 - bangler.core.pricing_engine - INFO - ==================================
+2025-09-20 17:39:52,921 - bangler.core.pricing_engine - INFO - Pricing complete: Material $262.070890516474358702323, Base $475.00, Total $737.070890516474358702323
+2025-09-20 17:41:31,545 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Low Dome', metal_color='White', metal_quality='14K White', width='12 Mm', thickness='1.5 Mm')
+2025-09-20 17:41:31,546 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 17:41:31,546 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 164.52520726849747mm, thickness 1.5 Mm
+2025-09-20 17:41:31,546 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Low Dome, 14K White, 12 Mm, 1.5 Mm
+2025-09-20 17:41:31,561 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:76330:P
+2025-09-20 17:41:31,966 - bangler.utils.material_density - INFO - Using standard density for 14K White: 13.00 g/cm³
+2025-09-20 17:41:31,966 - bangler.core.pricing_engine - INFO - === MATERIAL WEIGHT CALCULATION ===
+2025-09-20 17:41:31,966 - bangler.core.pricing_engine - INFO - Dimensions: 12.0mm × 1.5mm × 6.75in
+2025-09-20 17:41:31,967 - bangler.core.pricing_engine - INFO - Quality: 14K White White
+2025-09-20 17:41:31,967 - bangler.core.pricing_engine - INFO - Density used: 13.000 g/cm³
+2025-09-20 17:41:31,967 - bangler.core.pricing_engine - INFO - Volume per inch: 0.457200 cm³/in
+2025-09-20 17:41:31,967 - bangler.core.pricing_engine - INFO - Weight per inch: 3.821824 DWT/in
+2025-09-20 17:41:31,967 - bangler.core.pricing_engine - INFO - Total weight: 25.797309 DWT
+2025-09-20 17:41:31,967 - bangler.core.pricing_engine - INFO - ==================================
+2025-09-20 17:41:31,967 - bangler.core.pricing_engine - INFO - Pricing complete: Material $3040.8807504613116802157, Base $475.00, Total $3515.8807504613116802157
+2025-09-20 17:44:49,859 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 17:44:49,860 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 17:44:49,860 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 164.52520726849747mm, thickness 0.75 Mm
+2025-09-20 17:44:49,860 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 17:44:49,861 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 17:44:50,399 - bangler.utils.material_density - INFO - Using standard density for 10K Yellow: 11.65 g/cm³
+2025-09-20 17:44:50,399 - bangler.core.pricing_engine - INFO - === MATERIAL WEIGHT CALCULATION ===
+2025-09-20 17:44:50,400 - bangler.core.pricing_engine - INFO - Dimensions: 1.0mm × 0.75mm × 6.75in
+2025-09-20 17:44:50,400 - bangler.core.pricing_engine - INFO - Quality: 10K Yellow Yellow
+2025-09-20 17:44:50,400 - bangler.core.pricing_engine - INFO - Density used: 11.650 g/cm³
+2025-09-20 17:44:50,400 - bangler.core.pricing_engine - INFO - Volume per inch: 0.019050 cm³/in
+2025-09-20 17:44:50,400 - bangler.core.pricing_engine - INFO - Weight per inch: 0.142706 DWT/in
+2025-09-20 17:44:50,400 - bangler.core.pricing_engine - INFO - Total weight: 0.963265 DWT
+2025-09-20 17:44:50,400 - bangler.core.pricing_engine - INFO - ==================================
+2025-09-20 17:44:50,400 - bangler.core.pricing_engine - INFO - Pricing complete: Material $83.887638513686983812364, Base $475.00, Total $558.887638513686983812364
+2025-09-20 17:46:26,227 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 17:46:26,228 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 17:46:26,228 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 164.52520726849747mm, thickness 0.75 Mm
+2025-09-20 17:46:26,228 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 17:46:26,229 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 17:46:26,801 - bangler.utils.material_density - INFO - Using standard density for 10K Yellow: 11.65 g/cm³
+2025-09-20 17:46:26,801 - bangler.core.pricing_engine - INFO - === MATERIAL WEIGHT CALCULATION ===
+2025-09-20 17:46:26,801 - bangler.core.pricing_engine - INFO - Dimensions: 1.0mm × 0.75mm × 6.75in
+2025-09-20 17:46:26,802 - bangler.core.pricing_engine - INFO - Quality: 10K Yellow Yellow
+2025-09-20 17:46:26,802 - bangler.core.pricing_engine - INFO - Density used: 11.650 g/cm³
+2025-09-20 17:46:26,802 - bangler.core.pricing_engine - INFO - Volume per inch: 0.019050 cm³/in
+2025-09-20 17:46:26,802 - bangler.core.pricing_engine - INFO - Weight per inch: 0.142706 DWT/in
+2025-09-20 17:46:26,802 - bangler.core.pricing_engine - INFO - Total weight: 0.963265 DWT
+2025-09-20 17:46:26,802 - bangler.core.pricing_engine - INFO - ==================================
+2025-09-20 17:46:26,802 - bangler.core.pricing_engine - INFO - Pricing complete: Material $83.887638513686983812364, Base $475.00, Total $558.887638513686983812364
+2025-09-20 17:58:37,363 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 17:58:37,363 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 17:58:37,474 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 164.52520726849747mm, thickness 0.75 Mm
+2025-09-20 17:58:37,585 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 17:58:37,719 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 17:58:38,533 - bangler.utils.material_density - INFO - Using standard density for 10K Yellow: 11.65 g/cm³
+2025-09-20 17:58:38,533 - bangler.core.pricing_engine - INFO - === MATERIAL WEIGHT CALCULATION ===
+2025-09-20 17:58:38,533 - bangler.core.pricing_engine - INFO - Dimensions: 1.0mm × 0.75mm × 6.75in
+2025-09-20 17:58:38,533 - bangler.core.pricing_engine - INFO - Quality: 10K Yellow Yellow
+2025-09-20 17:58:38,533 - bangler.core.pricing_engine - INFO - Density used: 11.650 g/cm³
+2025-09-20 17:58:38,533 - bangler.core.pricing_engine - INFO - Volume per inch: 0.019050 cm³/in
+2025-09-20 17:58:38,533 - bangler.core.pricing_engine - INFO - Weight per inch: 0.142706 DWT/in
+2025-09-20 17:58:38,533 - bangler.core.pricing_engine - INFO - Total weight: 0.963265 DWT
+2025-09-20 17:58:38,533 - bangler.core.pricing_engine - INFO - ==================================
+2025-09-20 17:58:38,684 - bangler.core.pricing_engine - INFO - Pricing complete: Material $83.887638513686983812364, Base $475.00, Total $558.887638513686983812364
+2025-09-20 17:59:02,028 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=11, metal_shape='Comfort Fit', metal_color='Yellow', metal_quality='14K Yellow', width='4 Mm', thickness='2 Mm')
+2025-09-20 17:59:02,029 - bangler.core.pricing_engine - INFO - Converting size 11 to circumference
+2025-09-20 17:59:02,139 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 169.55175551424114mm, thickness 2 Mm
+2025-09-20 17:59:02,251 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Comfort Fit, 14K Yellow, 4 Mm, 2 Mm
+2025-09-20 17:59:02,394 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:9303759:P
+2025-09-20 17:59:02,995 - bangler.utils.material_density - INFO - Using standard density for 14K Yellow: 13.30 g/cm³
+2025-09-20 17:59:02,995 - bangler.core.pricing_engine - INFO - === MATERIAL WEIGHT CALCULATION ===
+2025-09-20 17:59:02,995 - bangler.core.pricing_engine - INFO - Dimensions: 4.0mm × 2.0mm × 7.0in
+2025-09-20 17:59:02,996 - bangler.core.pricing_engine - INFO - Quality: 14K Yellow Yellow
+2025-09-20 17:59:02,996 - bangler.core.pricing_engine - INFO - Density used: 13.300 g/cm³
+2025-09-20 17:59:02,996 - bangler.core.pricing_engine - INFO - Volume per inch: 0.203200 cm³/in
+2025-09-20 17:59:02,996 - bangler.core.pricing_engine - INFO - Weight per inch: 1.737786 DWT/in
+2025-09-20 17:59:02,996 - bangler.core.pricing_engine - INFO - Total weight: 12.164505 DWT
+2025-09-20 17:59:02,996 - bangler.core.pricing_engine - INFO - ==================================
+2025-09-20 17:59:03,148 - bangler.core.pricing_engine - INFO - Pricing complete: Material $1435.79501879892745681248, Base $475.00, Total $1910.79501879892745681248
