@@ -1,9 +1,0 @@
-# Keep the directory but ignore CSV files in git
-# Users should place their own sizing stock CSV exports here
-*.csv
-
-# Keep the .gitignore file itself
-!.gitignore
-
-# Documentation about expected file format
-!README.md

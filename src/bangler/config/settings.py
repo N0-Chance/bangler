@@ -1,61 +1,85 @@
-"""
-Configuration management for Bangler project
-Handles environment variables and application settings
-"""
-
 import os
-from typing import Optional
+from decimal import Decimal
+from typing import Dict, Any
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
-
 class BanglerConfig:
-    """Configuration settings for Bangler application"""
+    """Centralized configuration for bangler system"""
 
-    def __init__(self):
-        # Stuller API Configuration
-        self.stuller_username = os.getenv("STULLER_USERNAME")
-        self.stuller_password = os.getenv("STULLER_PASSWORD")
-        self.stuller_api_url = os.getenv("STULLER_API_URL", "https://api.stuller.com/v2")
+    # Stuller API Configuration
+    STULLER_USERNAME = os.getenv('STULLER_USERNAME')
+    STULLER_PASSWORD = os.getenv('STULLER_PASSWORD')
+    STULLER_BASE_URL = os.getenv('STULLER_BASE_URL', 'https://api.stuller.com/v2')
+    STULLER_TIMEOUT = int(os.getenv('STULLER_TIMEOUT', '30'))
 
-        # Business Configuration
-        self.base_price = float(os.getenv("BASE_PRICE", "475.00"))
-        self.markup_percentage = self._get_optional_float("MARKUP_PERCENTAGE")
-        self.shop_overhead = self._get_optional_float("SHOP_OVERHEAD")
+    # Pricing Configuration
+    PRICING = {
+        'base_price': Decimal('475.00'),        # Current flat rate
+        'markup_percentage': None,              # Future feature
+        'shop_overhead': None,                  # Future feature
+        'labor_rate': None,                     # Future feature
+        'tax_rate': None                        # Future feature
+    }
 
-        # Application Configuration
-        self.debug = os.getenv("DEBUG", "false").lower() == "true"
-        self.log_level = os.getenv("LOG_LEVEL", "INFO")
+    # Material Calculation Configuration (from bangle_math.md)
+    MATERIAL_CALC = {
+        'k_factor': 0.5,                        # Neutral axis factor (tweakable)
+        'seam_allowance_in': 0.04,              # Seam allowance inches (tweakable)
+        'mm_per_inch': 25.4,                    # Conversion constant
+        'round_up_increment': 1.0               # Round to nearest inch
+    }
 
-    def _get_optional_float(self, key: str) -> Optional[float]:
-        """Get optional float value from environment"""
-        value = os.getenv(key)
-        if value:
-            try:
-                return float(value)
-            except ValueError:
-                return None
-        return None
+    # Business Rules
+    BUSINESS_RULES = {
+        'min_size': 10,
+        'max_size': 27,
+        'valid_shapes': ['Flat', 'Comfort Fit', 'Low Dome', 'Half Round', 'Square', 'Triangle'],
+        'valid_colors': ['Yellow', 'White', 'Rose', 'Green', 'Sterling Silver'],
+        'valid_qualities': ['10k', '14k', '18k']
+    }
 
-    @property
-    def has_stuller_credentials(self) -> bool:
+    # Logging Configuration
+    LOGGING = {
+        'level': os.getenv('LOG_LEVEL', 'INFO'),
+        'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        'file_path': os.getenv('LOG_FILE_PATH', 'logs/bangler.log')
+    }
+
+    @classmethod
+    def get_pricing_config(cls) -> Dict[str, Any]:
+        """Get current pricing configuration"""
+        return cls.PRICING.copy()
+
+    @classmethod
+    def get_material_calc_config(cls) -> Dict[str, Any]:
+        """Get material calculation configuration"""
+        return cls.MATERIAL_CALC.copy()
+
+    @classmethod
+    def update_base_price(cls, new_price: Decimal):
+        """Update base price (for future admin interface)"""
+        cls.PRICING['base_price'] = new_price
+
+    @classmethod
+    def has_stuller_credentials(cls) -> bool:
         """Check if Stuller credentials are configured"""
-        return bool(self.stuller_username and self.stuller_password)
+        return bool(cls.STULLER_USERNAME and cls.STULLER_PASSWORD)
 
-    def validate(self) -> list:
+    @classmethod
+    def validate(cls) -> list:
         """Validate configuration and return list of errors"""
         errors = []
 
-        if not self.has_stuller_credentials:
+        if not cls.has_stuller_credentials():
             errors.append("Stuller credentials not configured. Set STULLER_USERNAME and STULLER_PASSWORD.")
 
-        if self.base_price <= 0:
+        if cls.PRICING['base_price'] <= 0:
             errors.append("BASE_PRICE must be greater than 0")
 
         return errors
 
 
-# Global configuration instance
+# Global configuration instance for backward compatibility
 config = BanglerConfig()

@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+"""
+Askew Jewelers Bangler CLI Interface
+
+Main command-line interface for custom bangle pricing.
+"""
+
+import sys
+import logging
+from typing import Optional
+from .prompts import BanglePrompter
+from .display import CLIDisplay
+from ..core.pricing_engine import PricingEngine
+from ..core.validation import BangleValidator
+from ..models.bangle import BangleSpec
+from ..config.settings import BanglerConfig
+
+# Configure logging
+logging.basicConfig(
+    level=getattr(logging, BanglerConfig.LOGGING['level']),
+    format=BanglerConfig.LOGGING['format'],
+    handlers=[
+        logging.FileHandler(BanglerConfig.LOGGING['file_path']),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+
+logger = logging.getLogger(__name__)
+
+class BanglerCLI:
+    """Main CLI application class"""
+
+    def __init__(self):
+        self.prompter = BanglePrompter()
+        self.display = CLIDisplay()
+        self.pricing_engine = PricingEngine()
+        self.validator = BangleValidator()
+
+    def run(self):
+        """Main CLI execution loop"""
+        self.display.show_welcome()
+
+        try:
+            while True:
+                # Collect specification
+                spec = self._collect_specification()
+                if not spec:
+                    continue
+
+                # Validate specification
+                if not self._validate_specification(spec):
+                    continue
+
+                # Calculate pricing
+                self._calculate_and_display_pricing(spec)
+
+                # Ask to continue
+                if not self.display.prompt_continue():
+                    break
+
+        except KeyboardInterrupt:
+            print("\n\nOperation cancelled by user.")
+        except Exception as e:
+            logger.error(f"Unexpected error in CLI: {e}")
+            print(f"\n❌ An unexpected error occurred: {e}")
+            print("Please contact technical support.")
+        finally:
+            self.display.show_goodbye()
+
+    def _collect_specification(self) -> Optional[BangleSpec]:
+        """Collect customer specification via guided prompts"""
+        try:
+            return self.prompter.collect_complete_specification()
+        except KeyboardInterrupt:
+            raise
+        except Exception as e:
+            logger.error(f"Error collecting specification: {e}")
+            print(f"\n❌ Error collecting specification: {e}")
+            return None
+
+    def _validate_specification(self, spec: BangleSpec) -> bool:
+        """Validate specification and show errors if any"""
+        validation_result = self.validator.validate_complete_spec(spec)
+
+        if validation_result is True:
+            return True
+
+        print("\n❌ Specification Errors:")
+        for error in validation_result:
+            print(f"   • {error}")
+        print("\nPlease try again with valid selections.")
+        return False
+
+    def _calculate_and_display_pricing(self, spec: BangleSpec):
+        """Calculate pricing and display results"""
+        self.display.show_specification_summary(spec)
+        self.display.show_calculating()
+
+        logger.info(f"Calculating pricing for specification: {spec}")
+
+        # Calculate pricing
+        result = self.pricing_engine.calculate_bangle_price(spec)
+
+        # Display result
+        self.display.show_price_result(result)
+
+def main():
+    """CLI entry point"""
+    cli = BanglerCLI()
+    cli.run()
+
+if __name__ == "__main__":
+    main()
