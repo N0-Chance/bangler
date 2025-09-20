@@ -23,11 +23,14 @@ Real-time pricing based on current Stuller material costs.
     def show_calculating():
         """Show calculation in progress"""
         print("\n🔄 Calculating pricing...")
-        print("   • Converting size to circumference")
-        print("   • Calculating material length needed")
-        print("   • Finding Stuller SKU")
-        print("   • Getting real-time pricing")
-        print("   • Applying pricing formula")
+
+    @staticmethod
+    def show_progress_step(step: str, data: str = None):
+        """Show individual progress step with optional data"""
+        if data:
+            print(f"   • {step}: {data}")
+        else:
+            print(f"   • {step}...")
 
     @staticmethod
     def show_price_result(result: Union[BanglePrice, PricingError]):

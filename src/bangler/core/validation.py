@@ -32,15 +32,13 @@ class BangleValidator:
 
     def validate_quality(self, quality: str, color: str) -> Union[bool, str]:
         """Validate metal quality (context-dependent on color)"""
-        if color == "Sterling Silver":
+        if color in ["Sterling Silver", "Continuum Sterling Silver"]:
             if quality is not None:
                 return "Quality should not be specified for Sterling Silver"
             return True
 
-        if not quality:
-            return "Quality is required for non-Sterling Silver metals"
-        if quality not in self.rules['valid_qualities']:
-            return f"Quality must be one of: {', '.join(self.rules['valid_qualities'])}"
+        # Quality validation removed - now using dynamic options from CSV data
+        # If invalid quality is selected, SKU lookup will fail gracefully
         return True
 
     def validate_complete_spec(self, spec: BangleSpec) -> Union[bool, List[str]]:

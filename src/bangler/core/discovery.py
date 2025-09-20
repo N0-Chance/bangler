@@ -13,7 +13,19 @@ from typing import Dict, List, Any, Optional
 class SizingStockLookup:
     """Loads and searches sizing stock products from CSV export"""
 
+    _instance = None
+    _initialized = False
+
+    def __new__(cls, csv_path: str = None):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self, csv_path: str = None):
+        # Only initialize once (singleton pattern)
+        if self._initialized:
+            return
+
         if csv_path:
             self.csv_path = Path(csv_path)
         else:
@@ -23,6 +35,7 @@ class SizingStockLookup:
         self.products = []
         self._elements_cache = {}  # Cache for parsed DescriptiveElements
         self._load_csv()
+        self._initialized = True
 
     def _find_latest_csv(self) -> Path:
         """Find the most recent sizing stock CSV file based on date in filename"""
@@ -44,7 +57,9 @@ class SizingStockLookup:
         if latest_file is None:
             raise FileNotFoundError(f"No sizing stock CSV files found in {data_dir}")
 
-        print(f"📅 Using sizing stock CSV: {latest_file.name} (date: {latest_date})")
+        # Format date as YYYY-MM-DD
+        formatted_date = f"{latest_date[:4]}-{latest_date[4:6]}-{latest_date[6:8]}"
+        print(f"📅 Using sizing stock CSV: {latest_file.name} (date: {formatted_date})")
         return latest_file
 
     def _load_csv(self) -> None:
@@ -61,9 +76,9 @@ class SizingStockLookup:
         print(f"✅ Loaded {len(self.products)} sizing stock products from CSV")
         print(f"📊 Memory usage: {memory_mb:.1f}MB (products list)")
 
-        if hasattr(self, '_elements_cache'):
-            cache_mb = sys.getsizeof(self._elements_cache) / 1024 / 1024
-            print(f"📊 Cache initialized: {cache_mb:.3f}MB")
+        # Initialize cache and display actual memory usage
+        cache_mb = sys.getsizeof(self._elements_cache) / 1024 / 1024
+        print(f"📊 Cache initialized: {cache_mb:.3f}MB")
 
     def find_sku(self, shape: str, quality: str, width: str, thickness: str = None, length: str = None) -> Optional[str]:
         """

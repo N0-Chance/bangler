@@ -15,14 +15,18 @@ from ..core.validation import BangleValidator
 from ..models.bangle import BangleSpec
 from ..config.settings import BanglerConfig
 
-# Configure logging
+# Configure logging: Only log to file for INFO, console only for WARNING/ERROR
+file_handler = logging.FileHandler(BanglerConfig.LOGGING['file_path'])
+file_handler.setLevel(getattr(logging, BanglerConfig.LOGGING['level']))
+file_handler.setFormatter(logging.Formatter(BanglerConfig.LOGGING['format']))
+
+console_handler = logging.StreamHandler(sys.stderr)  # Use stderr to avoid mixing with user interface
+console_handler.setLevel(logging.WARNING)  # Only show warnings and errors on console
+console_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+
 logging.basicConfig(
     level=getattr(logging, BanglerConfig.LOGGING['level']),
-    format=BanglerConfig.LOGGING['format'],
-    handlers=[
-        logging.FileHandler(BanglerConfig.LOGGING['file_path']),
-        logging.StreamHandler(sys.stdout)
-    ]
+    handlers=[file_handler, console_handler]
 )
 
 logger = logging.getLogger(__name__)
@@ -98,8 +102,8 @@ class BanglerCLI:
 
         logger.info(f"Calculating pricing for specification: {spec}")
 
-        # Calculate pricing
-        result = self.pricing_engine.calculate_bangle_price(spec)
+        # Calculate pricing with progress display
+        result = self.pricing_engine.calculate_bangle_price_with_progress(spec, self.display)
 
         # Display result
         self.display.show_price_result(result)

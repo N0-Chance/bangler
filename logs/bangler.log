@@ -53,3 +53,37 @@
 2025-09-20 11:18:39,747 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 18K Yellow, 9 Mm, 3 Mm
 2025-09-20 11:18:39,758 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998444:P
 2025-09-20 11:18:40,353 - bangler.core.pricing_engine - INFO - Pricing complete: Material $599.180840, Base $475.00, Total $1074.180840
+2025-09-20 11:39:32,984 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=23, metal_shape='Flat', metal_color='Yellow', metal_quality='10K', width='4 Mm', thickness='3 Mm')
+2025-09-20 11:39:32,984 - bangler.core.pricing_engine - INFO - Converting size 23 to circumference
+2025-09-20 11:39:32,984 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 73.02mm, thickness 3 Mm
+2025-09-20 11:39:32,985 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 4 Mm, 3 Mm
+2025-09-20 11:39:33,040 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:76719:P
+2025-09-20 11:39:33,971 - bangler.core.pricing_engine - INFO - Pricing complete: Material $348.347120, Base $475.00, Total $823.347120
+2025-09-20 12:32:07,347 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='24K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 12:32:07,347 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 12:32:07,347 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 52.37mm, thickness 0.75 Mm
+2025-09-20 12:32:07,347 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 24K Yellow Yellow, 1 Mm, 0.75 Mm
+2025-09-20 12:32:07,354 - bangler.core.pricing_engine - WARNING - No SKU found for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='24K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 12:32:50,482 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 12:32:50,483 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 12:32:50,483 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 52.37mm, thickness 0.75 Mm
+2025-09-20 12:32:50,483 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow Yellow, 1 Mm, 0.75 Mm
+2025-09-20 12:32:50,491 - bangler.core.pricing_engine - WARNING - No SKU found for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 12:39:51,118 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 12:39:51,118 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 12:39:51,118 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 52.37mm, thickness 0.75 Mm
+2025-09-20 12:39:51,118 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 12:39:51,119 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 12:39:51,939 - bangler.core.pricing_engine - INFO - Pricing complete: Material $261.260340, Base $475.00, Total $736.260340
+2025-09-20 12:49:03,602 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=10, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 12:49:03,602 - bangler.core.pricing_engine - INFO - Converting size 10 to circumference
+2025-09-20 12:49:03,602 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 52.37mm, thickness 0.75 Mm
+2025-09-20 12:49:03,602 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 12:49:03,604 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 12:49:04,170 - bangler.core.pricing_engine - INFO - Pricing complete: Material $261.260340, Base $475.00, Total $736.260340
+2025-09-20 13:14:59,325 - bangler.cli.interface - INFO - Calculating pricing for specification: BangleSpec(size=17, metal_shape='Flat', metal_color='Yellow', metal_quality='10K Yellow', width='1 Mm', thickness='0.75 Mm')
+2025-09-20 13:14:59,325 - bangler.core.pricing_engine - INFO - Converting size 17 to circumference
+2025-09-20 13:14:59,325 - bangler.core.pricing_engine - INFO - Calculating material length for circumference 63.5mm, thickness 0.75 Mm
+2025-09-20 13:14:59,326 - bangler.core.pricing_engine - INFO - Finding SKU for spec: Flat, 10K Yellow, 1 Mm, 0.75 Mm
+2025-09-20 13:14:59,327 - bangler.core.pricing_engine - INFO - Getting real-time price for SKU: SIZING STOCK:998842:P
+2025-09-20 13:14:59,894 - bangler.core.pricing_engine - INFO - Pricing complete: Material $261.260340, Base $475.00, Total $736.260340

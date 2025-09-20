@@ -14,9 +14,16 @@ class BangleSpec:
 
     def to_quality_string(self) -> str:
         """Convert to Stuller quality format (e.g., '14K Yellow')"""
-        if self.metal_color == "Sterling Silver":
-            return "Sterling Silver"
-        return f"{self.metal_quality} {self.metal_color}"
+        if self.metal_color in ["Sterling Silver", "Continuum Sterling Silver"]:
+            return self.metal_color
+
+        # Handle CSV format where quality may already include color
+        if self.metal_quality and self.metal_color.lower() in self.metal_quality.lower():
+            return self.metal_quality  # Quality already includes color (e.g., "24K Yellow")
+        elif self.metal_quality:
+            return f"{self.metal_quality} {self.metal_color}"  # Combine quality + color
+        else:
+            return self.metal_color  # Fallback to just color
 
 @dataclass
 class MaterialCalculation:

@@ -156,12 +156,135 @@ class PricingEngine:
                 f"Color {spec.metal_color} not in valid colors: {rules['valid_colors']}"
             )
 
-        # Validate quality (skip if Sterling Silver)
-        if spec.metal_color != "Sterling Silver":
-            if not spec.metal_quality or spec.metal_quality not in rules['valid_qualities']:
-                return BusinessFormatter.format_error_for_user(
-                    'invalid_combination',
-                    f"Quality {spec.metal_quality} not in valid qualities: {rules['valid_qualities']}"
-                )
+        # Quality validation removed - now using dynamic options from CSV data
+        # If user selects invalid quality, the SKU lookup will fail gracefully
 
         return True
+
+    def calculate_bangle_price_with_progress(self, spec: BangleSpec, display=None):
+        """
+        Complete end-to-end pricing calculation with progress display
+
+        Returns either a BanglePrice with full breakdown or PricingError for user display
+        """
+        try:
+            # Step 1: Convert size to circumference
+            logger.info(f"Converting size {spec.size} to circumference")
+            if display:
+                display.show_progress_step("Converting size to circumference", f"Size {spec.size}")
+            circumference_mm = self.size_converter.size_to_circumference_mm(spec.size)
+            if display:
+                display.show_progress_step("Circumference", f"{circumference_mm:.2f}mm")
+
+            # Step 2: Calculate material length needed
+            logger.info(f"Calculating material length for circumference {circumference_mm}mm, thickness {spec.thickness}")
+            if display:
+                display.show_progress_step("Calculating material length needed")
+            thickness_mm = self.material_calculator.parse_thickness_string(spec.thickness)
+            material_calc = self.material_calculator.calculate_material_length(circumference_mm, thickness_mm)
+            if display:
+                display.show_progress_step("Material length needed", f"{material_calc.rounded_length_in:.2f} inches")
+
+            # Step 3: Find SKU using existing SizingStockLookup
+            logger.info(f"Finding SKU for spec: {spec.metal_shape}, {spec.to_quality_string()}, {spec.width}, {spec.thickness}")
+            if display:
+                display.show_progress_step("Finding Stuller SKU")
+            sku = self.sizing_stock.find_sku(
+                shape=spec.metal_shape,
+                quality=spec.to_quality_string(),
+                width=spec.width,
+                thickness=spec.thickness
+            )
+
+            if not sku:
+                logger.warning(f"No SKU found for specification: {spec}")
+                return BusinessFormatter.format_error_for_user(
+                    'sku_not_found',
+                    f"No SKU found for {spec.metal_shape} {spec.to_quality_string()} {spec.width} {spec.thickness}"
+                )
+
+            if display:
+                display.show_progress_step("Stuller SKU", sku)
+
+            # Step 4: Get real-time pricing from Stuller
+            logger.info(f"Getting real-time price for SKU: {sku}")
+            if display:
+                display.show_progress_step("Getting real-time pricing")
+            api_response = self.stuller_client.get_sku_price(sku)
+
+            # Check if API call succeeded - FIXED: correct logical check
+            if not api_response or api_response.get('success') != True:
+                logger.error(f"Failed to get price for SKU {sku}: {api_response}")
+                return BusinessFormatter.format_error_for_user(
+                    'api_unavailable',
+                    f"Failed to get price for SKU {sku}"
+                )
+
+            # Extract product data from successful response
+            products = api_response.get('products', [])
+            if not products:
+                logger.error(f"No products returned for SKU {sku}: {api_response}")
+                return BusinessFormatter.format_error_for_user(
+                    'sku_not_found',
+                    f"SKU {sku} not found in Stuller catalog"
+                )
+
+            product = products[0]  # Get first (should be only) product
+
+            # Extract price from new API format: {'Value': 87.08678, 'CurrencyCode': 'USD'}
+            price_obj = product.get('Price')
+            if not price_obj:
+                logger.error(f"No price data in product for SKU {sku}: {product}")
+                return BusinessFormatter.format_error_for_user(
+                    'api_unavailable',
+                    f"No price available for SKU {sku}"
+                )
+
+            # Handle both old and new price formats
+            if isinstance(price_obj, dict):
+                # New format: {'Value': 87.08678, 'CurrencyCode': 'USD'}
+                price_value = price_obj.get('Value')
+            else:
+                # Old format: '87.086780000000000' or 87.08678
+                price_value = price_obj
+
+            if price_value is None:
+                logger.error(f"Invalid price format for SKU {sku}: {price_obj}")
+                return BusinessFormatter.format_error_for_user(
+                    'api_unavailable',
+                    f"Invalid price format for SKU {sku}"
+                )
+
+            # Step 5: Calculate final pricing
+            material_cost_per_dwt = Decimal(str(price_value))
+            if display:
+                display.show_progress_step("Real-time pricing", f"${material_cost_per_dwt:.2f} per DWT")
+
+            if display:
+                display.show_progress_step("Applying pricing formula")
+            # Note: DWT conversion logic may need refinement based on Stuller's pricing units
+            material_total_cost = material_cost_per_dwt * Decimal(str(material_calc.rounded_length_in))
+
+            base_price = self.config['base_price']
+            total_price = material_total_cost + base_price
+
+            if display:
+                display.show_progress_step("Final price", f"${material_total_cost:.2f} + ${base_price:.2f} = ${total_price:.2f}")
+
+            logger.info(f"Pricing complete: Material ${material_total_cost}, Base ${base_price}, Total ${total_price}")
+
+            return BanglePrice(
+                sku=sku,
+                material_cost_per_dwt=material_cost_per_dwt,
+                material_length_in=material_calc.rounded_length_in,
+                material_total_cost=material_total_cost,
+                base_price=base_price,
+                total_price=total_price
+            )
+
+        except ValueError as e:
+            logger.error(f"Validation error in pricing calculation: {e}")
+            return BusinessFormatter.format_error_for_user('calculation_error', str(e))
+        except Exception as e:
+            logger.error(f"Unexpected error in pricing calculation: {e}")
+            return BusinessFormatter.format_error_for_user('unknown', str(e))
