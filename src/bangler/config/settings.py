@@ -28,7 +28,7 @@ class BanglerConfig:
         'k_factor': 0.5,                        # Neutral axis factor (tweakable)
         'seam_allowance_in': 0.04,              # Seam allowance inches (tweakable)
         'mm_per_inch': 25.4,                    # Conversion constant
-        'round_up_increment': 1.0               # Round to nearest inch
+        'round_up_increment': 0.25              # Round to nearest 0.25 inch (Stuller selling unit)
     }
 
     # Business Rules
@@ -36,7 +36,7 @@ class BanglerConfig:
         'min_size': 10,
         'max_size': 27,
         'valid_shapes': ['Flat', 'Comfort Fit', 'Low Dome', 'Half Round', 'Square', 'Triangle'],
-        'valid_colors': ['Yellow', 'White', 'Rose', 'Green', 'Sterling Silver'],
+        'valid_colors': ['Yellow', 'White', 'Rose', 'Green', 'Continuum Sterling Silver', 'Sterling Silver'],
         'valid_qualities': ['10K', '14K', '18K']  # Fixed: uppercase K to match CSV data
     }
 

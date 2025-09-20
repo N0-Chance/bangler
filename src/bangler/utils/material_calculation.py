@@ -29,7 +29,7 @@ class MaterialCalculator:
         calculated_length = math.pi * (id_in + 2 * k_factor * thickness_in)
         total_length = calculated_length + seam_allowance
 
-        # Round up to nearest inch (Stuller selling unit)
+        # Round up to nearest Stuller selling unit
         rounded_length = math.ceil(total_length / self.config['round_up_increment']) * self.config['round_up_increment']
 
         return MaterialCalculation(

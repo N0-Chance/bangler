@@ -1,42 +1,40 @@
-from typing import Dict
-import os
-from pathlib import Path
+import math
 
 class SizeConverter:
     """Handles bangle size to MM circumference conversion"""
 
+    # Hardcoded size-to-diameter mapping (inside-to-inside measurements in MM)
+    # Source: Original bangle_size.txt reference data
+    SIZE_TO_DIAMETER_MM = {
+        10: 52.37, 11: 53.97, 12: 55.54, 13: 57.15, 14: 58.72, 15: 60.32,
+        16: 61.89, 17: 63.50, 18: 65.07, 19: 66.67, 20: 68.24, 21: 69.85,
+        22: 71.42, 23: 73.02, 24: 74.59, 25: 76.20, 26: 77.77, 27: 79.37
+    }
+
     def __init__(self):
-        self.size_to_mm = self._load_size_data()
-
-    def _load_size_data(self) -> Dict[int, float]:
-        """Load size conversion data from bangle_size.txt"""
-        # Path relative to project root
-        size_file = Path(__file__).parent.parent.parent.parent / "docs" / "bangle_size.txt"
-
-        size_map = {}
-        try:
-            with open(size_file, 'r') as f:
-                for line in f:
-                    line = line.strip()
-                    if line and ' - ' in line and line[0].isdigit():
-                        try:
-                            size_str, mm_str = line.split(' - ')
-                            size_map[int(size_str)] = float(mm_str)
-                        except ValueError:
-                            # Skip lines that can't be parsed (like footer text)
-                            continue
-        except FileNotFoundError:
-            raise FileNotFoundError(f"Size conversion file not found: {size_file}")
-        except Exception as e:
-            raise ValueError(f"Error parsing size conversion file: {e}")
-
-        return size_map
+        # No file loading needed - using hardcoded data
+        pass
 
     def size_to_circumference_mm(self, size: int) -> float:
-        """Convert bangle size to MM circumference"""
-        if size not in self.size_to_mm:
-            raise ValueError(f"Invalid size: {size}. Valid sizes: {list(self.size_to_mm.keys())}")
-        return self.size_to_mm[size]
+        """
+        Convert bangle size to MM circumference
+
+        Args:
+            size: Bangle size (10-27)
+
+        Returns:
+            Circumference in millimeters (π × diameter)
+
+        Note:
+            The SIZE_TO_DIAMETER_MM mapping contains inside diameter measurements.
+            This method calculates the actual circumference using π × diameter.
+        """
+        if size not in self.SIZE_TO_DIAMETER_MM:
+            raise ValueError(f"Invalid size: {size}. Valid sizes: {list(self.SIZE_TO_DIAMETER_MM.keys())}")
+
+        diameter_mm = self.SIZE_TO_DIAMETER_MM[size]
+        circumference_mm = math.pi * diameter_mm
+        return circumference_mm
 
     def size_to_circumference_in(self, size: int) -> float:
         """Convert bangle size to inch circumference"""
@@ -45,4 +43,4 @@ class SizeConverter:
 
     def get_valid_sizes(self) -> list[int]:
         """Get list of valid bangle sizes"""
-        return sorted(self.size_to_mm.keys())
+        return sorted(self.SIZE_TO_DIAMETER_MM.keys())
