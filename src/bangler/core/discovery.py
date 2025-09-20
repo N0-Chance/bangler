@@ -65,7 +65,7 @@ class SizingStockLookup:
             cache_mb = sys.getsizeof(self._elements_cache) / 1024 / 1024
             print(f"📊 Cache initialized: {cache_mb:.3f}MB")
 
-    def find_sku(self, shape: str, quality: str, width: str, thickness: str = None, length: str = None) -> Optional[Dict[str, Any]]:
+    def find_sku(self, shape: str, quality: str, width: str, thickness: str = None, length: str = None) -> Optional[str]:
         """
         Find sizing stock SKU based on customer specifications
 
@@ -77,7 +77,7 @@ class SizingStockLookup:
             length: Length specification (optional, defaults to "Bulk")
 
         Returns:
-            Product dict with SKU and pricing info, or None if not found
+            SKU string if found, or None if not found
         """
         for product in self.products:
             # Check descriptive elements for match (with caching)
@@ -102,7 +102,7 @@ class SizingStockLookup:
                 if elements.get("Length", "").strip().lower() != target_length.lower():
                     continue
 
-                return product
+                return product.get("Sku")
 
         return None
 

@@ -56,17 +56,53 @@ class PricingEngine:
 
             # Step 4: Get real-time pricing from Stuller
             logger.info(f"Getting real-time price for SKU: {sku}")
-            price_data = self.stuller_client.get_sku_price(sku)
+            api_response = self.stuller_client.get_sku_price(sku)
 
-            if not price_data or 'Price' not in price_data:
-                logger.error(f"Failed to get price for SKU {sku}: {price_data}")
+            # Check if API call succeeded - FIXED: correct logical check
+            if not api_response or api_response.get('success') != True:
+                logger.error(f"Failed to get price for SKU {sku}: {api_response}")
                 return BusinessFormatter.format_error_for_user(
                     'api_unavailable',
                     f"Failed to get price for SKU {sku}"
                 )
 
+            # Extract product data from successful response
+            products = api_response.get('products', [])
+            if not products:
+                logger.error(f"No products returned for SKU {sku}: {api_response}")
+                return BusinessFormatter.format_error_for_user(
+                    'sku_not_found',
+                    f"SKU {sku} not found in Stuller catalog"
+                )
+
+            product = products[0]  # Get first (should be only) product
+
+            # Extract price from new API format: {'Value': 87.08678, 'CurrencyCode': 'USD'}
+            price_obj = product.get('Price')
+            if not price_obj:
+                logger.error(f"No price data in product for SKU {sku}: {product}")
+                return BusinessFormatter.format_error_for_user(
+                    'api_unavailable',
+                    f"No price available for SKU {sku}"
+                )
+
+            # Handle both old and new price formats
+            if isinstance(price_obj, dict):
+                # New format: {'Value': 87.08678, 'CurrencyCode': 'USD'}
+                price_value = price_obj.get('Value')
+            else:
+                # Old format: '87.086780000000000' or 87.08678
+                price_value = price_obj
+
+            if price_value is None:
+                logger.error(f"Invalid price format for SKU {sku}: {price_obj}")
+                return BusinessFormatter.format_error_for_user(
+                    'api_unavailable',
+                    f"Invalid price format for SKU {sku}"
+                )
+
             # Step 5: Calculate final pricing
-            material_cost_per_dwt = Decimal(str(price_data['Price']))
+            material_cost_per_dwt = Decimal(str(price_value))
             # Note: DWT conversion logic may need refinement based on Stuller's pricing units
             material_total_cost = material_cost_per_dwt * Decimal(str(material_calc.rounded_length_in))
 
