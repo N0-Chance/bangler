@@ -3,6 +3,7 @@
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-production-brightgreen.svg)](https://github.com/N0-Chance/bangler)
+[![Version](https://img.shields.io/badge/version-1.0.0-orange.svg)](https://github.com/N0-Chance/bangler/releases/tag/v1.0.0)
 
 **Professional real-time bangle pricing system for jewelry retailers integrating live Stuller material costs with systematic calculations.**
 
@@ -39,7 +40,7 @@
 
 ```bash
 # Clone and install
-git clone https://github.com/askewjewelers/bangler.git
+git clone https://github.com/N0-Chance/bangler.git
 cd bangler
 poetry install
 
@@ -411,32 +412,6 @@ python -c "from bangler.api.stuller_client import StullerClient; print(StullerCl
 - **Multi-location support** - Single jewelry store focus
 - **Non-bangle products** - Specialized for bangle pricing workflow
 
-## Contributing
-
-**Local setup:**
-```bash
-git clone https://github.com/askewjewelers/bangler.git
-cd bangler
-poetry install --with dev
-```
-
-**Development workflow:**
-```bash
-# Run tests
-poetry run pytest
-
-# Format code
-poetry run black src/
-poetry run isort src/
-
-# Type checking (future)
-poetry run mypy src/
-```
-
-**Branch strategy:** Feature branches from `main`, pull requests required. All changes must include test coverage and documentation updates.
-
-**Commit convention:** Conventional commits preferred. Include business context in commit messages.
-
 ## Release, Versioning & Changelog
 
 **Versioning:** Semantic versioning (SemVer) - MAJOR.MINOR.PATCH format
@@ -449,8 +424,9 @@ poetry run mypy src/
 **Release process:** Automated via GitHub Actions on tag creation. Poetry builds and publishes automatically.
 
 **Recent releases:**
-- **v0.1.0** (2025-09-21): Initial production release with complete CLI interface and Stuller integration
-- **v0.0.x** (2024): Development versions with incremental feature additions
+- **v1.0.0** (2025-09-25): Production release with complete CLI interface and Stuller integration
+- **v0.1.0** (2025-09-21): Initial release
+- **v0.0.x** (2025): Development versions with incremental feature additions
 
 See [CHANGELOG.md](CHANGELOG.md) for complete release history and migration notes.
 
@@ -470,7 +446,7 @@ See [CHANGELOG.md](CHANGELOG.md) for complete release history and migration note
 
 ## Support
 
-**Questions and issues:** [GitHub Issues](https://github.com/askewjewelers/bangler/issues) - Response within 2 business days
+**Questions and issues:** [GitHub Issues](https://github.com/N0-Chance/bangler/issues) - Response within 2 business days
 
 **Commercial inquiries:** Email support@askewjewelers.com for custom implementations or enterprise support
 

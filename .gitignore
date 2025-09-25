@@ -45,3 +45,12 @@ Thumbs.db
 
 # Logs
 *.log
+logs/
+
+# Claude
+CLAUDE.md
+.claude/
+.serena/
+
+# Old docs
+docs/archive/

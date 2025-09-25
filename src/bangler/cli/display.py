@@ -117,7 +117,7 @@ Real-time pricing based on current Stuller material costs.
             print("✅ Browser opened successfully!")
         except Exception as e:
             print(f"❌ Could not open browser: {e}")
-            print(f"💡 Please manually visit: {url}")
+            print(f"💡 Please ctrl+click to visit: {url}")
 
     @staticmethod
     def prompt_continue() -> bool:
