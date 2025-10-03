@@ -17,12 +17,23 @@ class BanglePrice:
     markup_percentage: Optional[float] = None
     labor_cost: Optional[Decimal] = None
     overhead_cost: Optional[Decimal] = None
+    base_price_delta: Optional[Decimal] = None  # Difference from default base price
+    base_price_delta_percent: Optional[float] = None  # Percentage difference from default
 
     def get_breakdown_display(self) -> dict:
         """Return user-friendly pricing breakdown"""
+        # Format base price with delta if custom price was used
+        if self.base_price_delta is not None and self.base_price_delta != 0:
+            sign = '+' if self.base_price_delta > 0 else ''
+            percent_sign = '+' if self.base_price_delta_percent > 0 else ''
+            direction = "more" if self.base_price_delta > 0 else "less"
+            base_price_str = f"${self.base_price:.2f} ({sign}${abs(self.base_price_delta):.2f} / {percent_sign}{self.base_price_delta_percent}% {direction} than default)"
+        else:
+            base_price_str = f"${self.base_price:.2f}"
+
         return {
             "Material Cost": f"${self.material_total_cost:.2f}",
-            "Base Price": f"${self.base_price:.2f}",
+            "Base Price": base_price_str,
             "Total Price": f"${self.total_price:.2f}",
             "SKU": self.sku,
             "Material Needed": f"{self.material_length_in:.2f} inches",

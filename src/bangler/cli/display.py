@@ -1,10 +1,12 @@
 import time
 import webbrowser
-from typing import Union
+from decimal import Decimal
+from typing import Union, Optional
 import questionary
 from ..models.bangle import BangleSpec
 from ..models.pricing import BanglePrice, PricingError
 from ..utils.formatting import BusinessFormatter
+from ..config.settings import BanglerConfig
 
 class CLIDisplay:
     """Terminal display formatting for CLI interface"""
@@ -81,13 +83,24 @@ Real-time pricing based on current Stuller material costs.
             print("   • Contact technical support")
 
     @staticmethod
-    def show_specification_summary(spec: BangleSpec):
+    def show_specification_summary(spec: BangleSpec, custom_base_price: Optional[Decimal] = None):
         """Display customer specification summary"""
         print(f"\n📋 Customer Specification:")
         print(f"   Size: {spec.size}")
         print(f"   Metal: {spec.to_quality_string()}")
         print(f"   Shape: {spec.metal_shape}")
         print(f"   Dimensions: {spec.width} × {spec.thickness}")
+
+        # Show base price info if custom price was set
+        if custom_base_price is not None:
+            default_base_price = BanglerConfig.PRICING['base_price']
+            if custom_base_price != default_base_price:
+                delta = custom_base_price - default_base_price
+                delta_percent = (delta / default_base_price * 100).quantize(Decimal('0.1'))
+                sign = '+' if delta > 0 else ''
+                percent_sign = '+' if delta_percent > 0 else ''
+                direction = "more" if delta > 0 else "less"
+                print(f"   Base Price: ${custom_base_price:.2f} ({sign}${abs(delta):.2f} / {percent_sign}{delta_percent}% {direction} than default)")
 
     @staticmethod
     def prompt_open_sku_page(sku: str) -> bool:

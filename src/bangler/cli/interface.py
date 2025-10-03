@@ -7,6 +7,7 @@ Main command-line interface for custom bangle pricing.
 
 import sys
 import logging
+from decimal import Decimal
 from typing import Optional
 from .prompts import BanglePrompter
 from .display import CLIDisplay
@@ -48,7 +49,7 @@ class BanglerCLI:
         try:
             while True:
                 # Collect specification
-                spec = self._collect_specification()
+                spec, custom_base_price = self._collect_specification()
                 if not spec:
                     continue
 
@@ -57,7 +58,7 @@ class BanglerCLI:
                     continue
 
                 # Calculate pricing
-                self._calculate_and_display_pricing(spec)
+                self._calculate_and_display_pricing(spec, custom_base_price)
 
                 # Ask to continue
                 if not self.display.prompt_continue():
@@ -72,7 +73,7 @@ class BanglerCLI:
         finally:
             self.display.show_goodbye()
 
-    def _collect_specification(self) -> Optional[BangleSpec]:
+    def _collect_specification(self) -> tuple[Optional[BangleSpec], Optional[Decimal]]:
         """Collect customer specification via guided prompts"""
         try:
             return self.prompter.collect_complete_specification()
@@ -81,7 +82,7 @@ class BanglerCLI:
         except Exception as e:
             logger.error(f"Error collecting specification: {e}")
             print(f"\n❌ Error collecting specification: {e}")
-            return None
+            return (None, None)
 
     def _validate_specification(self, spec: BangleSpec) -> bool:
         """Validate specification and show errors if any"""
@@ -96,15 +97,15 @@ class BanglerCLI:
         print("\nPlease try again with valid selections.")
         return False
 
-    def _calculate_and_display_pricing(self, spec: BangleSpec):
+    def _calculate_and_display_pricing(self, spec: BangleSpec, custom_base_price: Optional[Decimal] = None):
         """Calculate pricing and display results"""
-        self.display.show_specification_summary(spec)
+        self.display.show_specification_summary(spec, custom_base_price)
         self.display.show_calculating()
 
         logger.info(f"Calculating pricing for specification: {spec}")
 
         # Calculate pricing with progress display
-        result = self.pricing_engine.calculate_bangle_price_with_progress(spec, self.display)
+        result = self.pricing_engine.calculate_bangle_price_with_progress(spec, self.display, custom_base_price)
 
         # Display result
         self.display.show_price_result(result)

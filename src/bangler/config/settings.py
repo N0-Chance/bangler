@@ -17,6 +17,7 @@ class BanglerConfig:
     # Pricing Configuration
     PRICING = {
         'base_price': Decimal('475.00'),        # Current flat rate
+        'base_price_warning_threshold': Decimal('200.00'),  # Warn if custom price deviates by this amount
         'markup_percentage': None,              # Future feature
         'shop_overhead': None,                  # Future feature
         'labor_rate': None,                     # Future feature

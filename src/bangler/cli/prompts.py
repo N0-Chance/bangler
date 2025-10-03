@@ -1,4 +1,5 @@
 import questionary
+from decimal import Decimal, InvalidOperation
 from typing import Optional, Dict, Any
 from ..models.bangle import BangleSpec
 from ..core.discovery import SizingStockLookup
@@ -155,7 +156,65 @@ class BanglePrompter:
 
         return thickness
 
-    def collect_complete_specification(self) -> Optional[BangleSpec]:
+    def prompt_base_price(self, default_base_price: Decimal) -> Optional[Decimal | str]:
+        """Step 7: Optional base price customization"""
+        # Ask if user wants to change base price
+        change_choice = questionary.select(
+            f"Change base price (default: ${default_base_price:.2f})?",
+            choices=["No", "Yes", self.BACK_OPTION],
+            default="No"
+        ).ask()
+
+        if change_choice is None:
+            return None  # User cancelled (Ctrl+C)
+        if change_choice == self.BACK_OPTION:
+            return "BACK"
+        if change_choice == "No":
+            return default_base_price  # Use default
+
+        # User wants to enter custom base price
+        config = BanglerConfig.get_pricing_config()
+        threshold = config['base_price_warning_threshold']
+        
+        while True:
+            custom_price_str = questionary.text(
+                f"Enter base price (current default: ${default_base_price:.2f}):",
+                validate=lambda text: len(text) > 0 or "Base price cannot be empty"
+            ).ask()
+
+            if custom_price_str is None:
+                return None  # User cancelled
+
+            # Validate and convert to Decimal
+            try:
+                custom_price = Decimal(custom_price_str).quantize(Decimal('0.01'))
+                
+                if custom_price <= 0:
+                    print(f"❌ Invalid input: Base price must be greater than $0. You entered: ${custom_price:.2f}")
+                    continue
+
+                # Check if deviation exceeds threshold
+                delta = abs(custom_price - default_base_price)
+                if delta > threshold:
+                    direction = "more" if custom_price > default_base_price else "less"
+                    confirm = questionary.select(
+                        f"${custom_price:.2f} is ${delta:.2f} {direction} than the default base price of ${default_base_price:.2f} - are you sure this is correct?",
+                        choices=["Yes", "No"],
+                        default="Yes"
+                    ).ask()
+                    
+                    if confirm is None:
+                        return None  # User cancelled
+                    if confirm == "No":
+                        continue  # Re-prompt for price
+
+                return custom_price
+
+            except (InvalidOperation, ValueError):
+                print(f"❌ Invalid input: Please enter a valid number. You entered: '{custom_price_str}'")
+                continue
+
+    def collect_complete_specification(self) -> tuple[Optional[BangleSpec], Optional[Decimal]]:
         """Complete guided workflow to collect all bangle specifications with Back navigation"""
         print("\n=== Bangle Pricing Calculator ===")
         print("Let's gather the specifications for your custom bangle.\n")
@@ -163,6 +222,7 @@ class BanglePrompter:
         # State machine for navigation
         step = 1
         self.current_spec = {}
+        custom_base_price = None  # Will be set in step 7
 
         while True:
             try:
@@ -174,7 +234,7 @@ class BanglePrompter:
                         print(f"✓ Size: {result}")
                         step = 2
                     else:
-                        return None  # User cancelled
+                        return (None, None)  # User cancelled
 
                 elif step == 2:
                     # Step 2: Metal Shape
@@ -187,7 +247,7 @@ class BanglePrompter:
                         print(f"✓ Shape: {result}")
                         step = 3
                     else:
-                        return None  # User cancelled
+                        return (None, None)  # User cancelled
 
                 elif step == 3:
                     # Step 3: Metal Color
@@ -200,7 +260,7 @@ class BanglePrompter:
                         print(f"✓ Color: {result}")
                         step = 4
                     else:
-                        return None  # User cancelled
+                        return (None, None)  # User cancelled
 
                 elif step == 4:
                     # Step 4: Metal Quality (conditional)
@@ -216,7 +276,7 @@ class BanglePrompter:
                             print("✓ Quality: Sterling Silver (no karat selection needed)")
                         step = 5
                     else:
-                        return None  # User cancelled
+                        return (None, None)  # User cancelled
 
                 elif step == 5:
                     # Step 5: Width (filtered by shape)
@@ -239,7 +299,7 @@ class BanglePrompter:
                             print(f"✓ Width: {result}")
                             step = 6
                         else:
-                            return None  # User cancelled
+                            return (None, None)  # User cancelled
                     except ValueError as e:
                         print(f"\n❌ {e}")
                         self._show_available_alternatives(self.current_spec['metal_shape'], quality_string)
@@ -266,15 +326,38 @@ class BanglePrompter:
                         elif result is not None:
                             self.current_spec['thickness'] = result
                             print(f"✓ Thickness: {result}")
-                            break  # All steps complete
+                            step = 7  # Move to base price customization
                         else:
-                            return None  # User cancelled
+                            return (None, None)  # User cancelled
                     except ValueError as e:
                         print(f"\n❌ {e}")
                         self._show_thickness_alternatives(self.current_spec['metal_shape'], quality_string, self.current_spec['width'])
                         print("\nPlease go back and try a different combination.")
                         step = 5  # Go back to width selection
                         continue
+
+                elif step == 7:
+                    # Step 7: Base Price Customization (optional)
+                    config = BanglerConfig.get_pricing_config()
+                    default_base_price = config['base_price']
+
+                    result = self.prompt_base_price(default_base_price)
+                    if result == "BACK":
+                        step = 6
+                        continue
+                    elif result is not None:
+                        custom_base_price = result
+                        # Calculate and display delta if custom price differs from default
+                        if custom_base_price != default_base_price:
+                            delta = custom_base_price - default_base_price
+                            delta_percent = (delta / default_base_price * 100).quantize(Decimal('0.1'))
+                            direction = "more" if delta > 0 else "less"
+                            print(f"✓ Base Price: ${custom_base_price:.2f} ({'+' if delta > 0 else ''}{delta:.2f} / {'+' if delta_percent > 0 else ''}{delta_percent}% {direction} than default)")
+                        else:
+                            print(f"✓ Base Price: ${custom_base_price:.2f} (default)")
+                        break  # All steps complete
+                    else:
+                        return (None, None)  # User cancelled
 
             except KeyboardInterrupt:
                 # Let KeyboardInterrupt propagate to exit the program
@@ -297,7 +380,7 @@ class BanglePrompter:
         print(f"Dimensions: {spec.width} x {spec.thickness}")
         print("=" * 30)
 
-        return spec
+        return (spec, custom_base_price)
 
     def _show_available_alternatives(self, shape: str, quality_string: str) -> None:
         """Show available alternatives for shape/quality combination"""

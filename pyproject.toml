@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "bangler"
-version = "0.1.0"
+version = "1.1.0"
 description = "Bangle pricing script for Askew Jewelers"
-authors = ["chance"]
+authors = ["Chance Askew"]
 readme = "README.md"
 
 [tool.poetry.dependencies]

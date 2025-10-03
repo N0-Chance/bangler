@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-production-brightgreen.svg)](https://github.com/N0-Chance/bangler)
-[![Version](https://img.shields.io/badge/version-1.0.1-orange.svg)](https://github.com/N0-Chance/bangler/releases/tag/v1.0.1)
+[![Version](https://img.shields.io/badge/version-1.1.0-orange.svg)](https://github.com/N0-Chance/bangler/releases/tag/v1.1.0)
 
 **Professional real-time bangle pricing system for jewelry retailers integrating live Stuller material costs with systematic calculations.**
 
@@ -22,6 +22,7 @@
 ## Features
 
 - **Complete customer variable handling** - Size (10-27), metal shape, color, quality, width, thickness with validation
+- **Configurable base pricing** - Per-transaction base price customization with validation and deviation warnings
 - **Live Stuller integration** - Real-time pricing via authenticated API with circuit breaker reliability
 - **Material science calculations** - Karat-specific density tables achieving 95%+ accuracy across all gold types
 - **Professional CLI interface** - Guided questionary prompts with back navigation and progress indicators
@@ -149,9 +150,10 @@ LOG_FILE_PATH=logs/bangler.log
 
 ```python
 PRICING = {
-    'base_price': Decimal('475.00'),        # Base markup per bangle
-    'markup_percentage': None,              # Future: percentage-based markup
-    'shop_overhead': None,                  # Future: overhead calculations
+    'base_price': Decimal('475.00'),                    # Default base markup per bangle
+    'base_price_warning_threshold': Decimal('200.00'),  # Warn if custom price deviates by this amount
+    'markup_percentage': None,                          # Future: percentage-based markup
+    'shop_overhead': None,                              # Future: overhead calculations
 }
 
 MATERIAL_CALC = {
@@ -160,6 +162,13 @@ MATERIAL_CALC = {
     'round_up_increment': 0.25              # Round to 0.25" increments
 }
 ```
+
+**Custom Base Price Per Transaction:**
+The CLI now supports customizing the base price on a per-transaction basis:
+- Default fast-path: Press Enter to use default $475.00 base price
+- Custom pricing: Select "Yes" to enter a custom base price with validation
+- Deviation warnings: Automatic alert if custom price differs from default by ±$200 (configurable)
+- Delta display: Shows difference in both dollar amount and percentage throughout the workflow
 
 **Secrets Handling:** Store credentials in `.env` file (never commit to repository). For production, use environment variables or secure credential management.
 
@@ -193,6 +202,12 @@ Let's gather the specifications for your custom bangle.
 ✓ Color: Yellow
 ? Select 14K Yellow gold quality: 14K
 ✓ Quality: 14K
+? Select width for Flat 14K Yellow: 6.5 Mm
+✓ Width: 6.5 Mm
+? Select thickness for Flat 14K Yellow 6.5 Mm: 1.5 Mm
+✓ Thickness: 1.5 Mm
+? Change base price (default: $475.00)? No
+✓ Base Price: $475.00 (default)
 
 🔄 Calculating pricing...
    • Converting size to circumference
@@ -424,7 +439,8 @@ python -c "from bangler.api.stuller_client import StullerClient; print(StullerCl
 **Release process:** Automated via GitHub Actions on tag creation. Poetry builds and publishes automatically.
 
 **Recent releases:**
-- **v1.0.1** (2025-03-10): Bug fix release - Remove duplicate "Continuum Sterling Silver" in metal color selection
+- **v1.1.0** (2025-10-03): Feature release - Configurable base price per transaction with validation and deviation warnings
+- **v1.0.1** (2025-10-03): Bug fix release - Remove duplicate "Continuum Sterling Silver" in metal color selection
 - **v1.0.0** (2025-09-25): Production release with complete CLI interface and Stuller integration
 - **v0.1.0** (2025-09-21): Initial release
 - **v0.0.x** (2025): Development versions with incremental feature additions

@@ -1,6 +1,6 @@
 import logging
 from decimal import Decimal
-from typing import Union, Tuple
+from typing import Union, Tuple, Optional
 from ..models.bangle import BangleSpec, MaterialCalculation
 from ..models.pricing import BanglePrice, PricingError
 from ..utils.size_conversion import SizeConverter
@@ -24,7 +24,7 @@ class PricingEngine:
         self.stuller_client = StullerClient()
         self.config = BanglerConfig.get_pricing_config()
 
-    def calculate_bangle_price(self, spec: BangleSpec) -> Union[BanglePrice, PricingError]:
+    def calculate_bangle_price(self, spec: BangleSpec, custom_base_price: Optional[Decimal] = None) -> Union[BanglePrice, PricingError]:
         """
         Complete end-to-end pricing calculation
 
@@ -117,8 +117,17 @@ class PricingEngine:
 
             material_total_cost = material_cost_per_dwt * material_weight_dwt
 
-            base_price = self.config['base_price']
+            # Use custom base price if provided, otherwise use default
+            default_base_price = self.config['base_price']
+            base_price = custom_base_price if custom_base_price is not None else default_base_price
             total_price = material_total_cost + base_price
+
+            # Calculate delta info for display
+            base_price_delta = None
+            base_price_delta_percent = None
+            if custom_base_price is not None and custom_base_price != default_base_price:
+                base_price_delta = custom_base_price - default_base_price
+                base_price_delta_percent = float((base_price_delta / default_base_price * 100).quantize(Decimal('0.1')))
 
             logger.info(f"Pricing complete: Material ${material_total_cost}, Base ${base_price}, Total ${total_price}")
 
@@ -129,7 +138,9 @@ class PricingEngine:
                 material_weight_dwt=material_weight_dwt,
                 material_total_cost=material_total_cost,
                 base_price=base_price,
-                total_price=total_price
+                total_price=total_price,
+                base_price_delta=base_price_delta,
+                base_price_delta_percent=base_price_delta_percent
             )
 
         except ValueError as e:
@@ -217,7 +228,7 @@ class PricingEngine:
 
         return True
 
-    def calculate_bangle_price_with_progress(self, spec: BangleSpec, display=None):
+    def calculate_bangle_price_with_progress(self, spec: BangleSpec, display=None, custom_base_price: Optional[Decimal] = None):
         """
         Complete end-to-end pricing calculation with progress display
 
@@ -334,8 +345,17 @@ class PricingEngine:
 
             material_total_cost = material_cost_per_dwt * material_weight_dwt
 
-            base_price = self.config['base_price']
+            # Use custom base price if provided, otherwise use default
+            default_base_price = self.config['base_price']
+            base_price = custom_base_price if custom_base_price is not None else default_base_price
             total_price = material_total_cost + base_price
+
+            # Calculate delta info for display
+            base_price_delta = None
+            base_price_delta_percent = None
+            if custom_base_price is not None and custom_base_price != default_base_price:
+                base_price_delta = custom_base_price - default_base_price
+                base_price_delta_percent = float((base_price_delta / default_base_price * 100).quantize(Decimal('0.1')))
 
             if display:
                 display.show_progress_step("Final price", f"${material_total_cost:.2f} + ${base_price:.2f} = ${total_price:.2f}", thinking_time=0.05)
@@ -349,7 +369,9 @@ class PricingEngine:
                 material_weight_dwt=material_weight_dwt,
                 material_total_cost=material_total_cost,
                 base_price=base_price,
-                total_price=total_price
+                total_price=total_price,
+                base_price_delta=base_price_delta,
+                base_price_delta_percent=base_price_delta_percent
             )
 
         except ValueError as e:
