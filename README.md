@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-production-brightgreen.svg)](https://github.com/N0-Chance/bangler)
-[![Version](https://img.shields.io/badge/version-1.0.0-orange.svg)](https://github.com/N0-Chance/bangler/releases/tag/v1.0.0)
+[![Version](https://img.shields.io/badge/version-1.0.1-orange.svg)](https://github.com/N0-Chance/bangler/releases/tag/v1.0.1)
 
 **Professional real-time bangle pricing system for jewelry retailers integrating live Stuller material costs with systematic calculations.**
 
@@ -424,6 +424,7 @@ python -c "from bangler.api.stuller_client import StullerClient; print(StullerCl
 **Release process:** Automated via GitHub Actions on tag creation. Poetry builds and publishes automatically.
 
 **Recent releases:**
+- **v1.0.1** (2025-03-10): Bug fix release - Remove duplicate "Continuum Sterling Silver" in metal color selection
 - **v1.0.0** (2025-09-25): Production release with complete CLI interface and Stuller integration
 - **v0.1.0** (2025-09-21): Initial release
 - **v0.0.x** (2025): Development versions with incremental feature additions

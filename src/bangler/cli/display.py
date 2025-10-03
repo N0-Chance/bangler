@@ -142,7 +142,7 @@ Real-time pricing based on current Stuller material costs.
 Thank you for using the Askew Jewelers Bangler!
 
 For technical support or questions, please contact:
-    support@askewjewelers.com
+    chance@askewjewelers.com
 
 Have a great day! 💍 
 """)

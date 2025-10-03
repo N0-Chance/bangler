@@ -49,13 +49,7 @@ class BanglePrompter:
 
     def prompt_metal_color(self) -> Optional[str]:
         """Step 3: Metal Color selection"""
-        # Add Continuum Sterling Silver before Sterling Silver
-        color_choices = []
-        for color in self.rules['valid_colors']:
-            if color == "Sterling Silver":
-                color_choices.append("Continuum Sterling Silver")
-            color_choices.append(color)
-        color_choices.append(self.BACK_OPTION)
+        color_choices = list(self.rules['valid_colors']) + [self.BACK_OPTION]
 
         try:
             color = questionary.select(
